@@ -10,7 +10,11 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
-
+    public function hasRole($role){
+        $role = (array)$role;
+    
+        return in_array($this->role, $role);
+    }
     /**
      * The attributes that are mass assignable.
      *
