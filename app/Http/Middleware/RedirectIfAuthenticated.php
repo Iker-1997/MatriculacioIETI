@@ -17,7 +17,7 @@ class RedirectIfAuthenticated
      * @param  string|null  ...$guards
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, ...$guards)
+    /*public function handle(Request $request, Closure $next, ...$guards)
     {
         $guards = empty($guards) ? [null] : $guards;
 
@@ -27,6 +27,25 @@ class RedirectIfAuthenticated
             }
         }
 
+        return $next($request);
+    }*/
+
+    public function handle($request, Closure $next, $guard = null) {
+        if (Auth::guard($guard)->check()) {
+            $role = Auth::user()->role; 
+            switch ($role) {
+                case 'admin':
+                    return redirect('/admin_dashboard');
+                    break;
+                case 'seller':
+                    return redirect('/seller_dashboard');
+                    break; 
+
+                default:
+                    return redirect('/home'); 
+                    break;
+                }
+            }
         return $next($request);
     }
 }
