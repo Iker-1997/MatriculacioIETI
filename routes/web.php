@@ -17,6 +17,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+<<<<<<< HEAD
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
+=======
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -27,3 +34,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/admin_dashboard', 'Admin\DashboardController@index')->middleware('role:admin');
 Route::get('/seller_dashboard', 'Seller\DashboardController@index')->middleware('role:seller');
+>>>>>>> adri
