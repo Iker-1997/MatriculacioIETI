@@ -26,7 +26,8 @@ class ProyectoMigrate extends Migration{
             $table->foreign('term_id')->references('id')->on('terms');
             $table->string('name_careers');
             $table->string('code_careers');
-            $table->text('description_careers');
+            $table->text('family');
+            $table->integer('career_hours');
             $table->timestamps();
         });
 
@@ -36,7 +37,10 @@ class ProyectoMigrate extends Migration{
             $table->foreign('career_id')->references('id')->on('careers');
             $table->string('name_mps');
             $table->string('code_mps');
-            $table->text('description_mps');
+            $table->integer('mp_min_duration');
+            $table->integer('mp_max_duration');
+            $table->date('mp_begin');
+            $table->date('mp_end');
             $table->timestamps();
         });
 
@@ -46,7 +50,7 @@ class ProyectoMigrate extends Migration{
             $table->foreign('mp_id')->references('id')->on('mps');
             $table->string('name_uf');
             $table->string('code_uf');
-            $table->text('description_uf');
+            $table->integer('uf_duration');
             $table->timestamps();
         });
 
@@ -103,9 +107,10 @@ class ProyectoMigrate extends Migration{
  
         Schema::create('enrolmentufs', function (Blueprint $table){
             $table->id();
-             $table->unsignedBigInteger('enrolments_id');
+            $table->unsignedBigInteger('enrolments_id');
             $table->foreign('enrolments_id')->references('id')->on('enrolments');
-
+            $table->unsignedBigInteger('ufs_id');
+            $table->foreign('ufs_id')->references('id')->on('ufs');
             $table->timestamps();
         });
 
@@ -116,10 +121,20 @@ class ProyectoMigrate extends Migration{
             $table->foreign('reqenrol_id')->references('id')->on('reqenrol');
             $table->timestamps();
         });
+
+        Schema::create('logs', function (Blueprint $table){
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->string('lavel');
+            $table->text('message');
+            $table->timestamps();
+        });
     }
 
     public function down(){
 
+        Schema::dropIfExists('logs');
         Schema::dropIfExists('terms');
         Schema::dropIfExists('careers');
         Schema::dropIfExists('mps');
