@@ -9,15 +9,6 @@ class ProyectoMigrate extends Migration{
 
     public function up()
     {
-        Schema::create('logs', function (Blueprint $table){
-            $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->string('lavel');
-            $table->text('message');
-            $table->timestamps();
-        });
-
         Schema::create('terms', function (Blueprint $table){
             $table->id();
             $table->dateTime('start');
@@ -80,8 +71,8 @@ class ProyectoMigrate extends Migration{
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
 
-            $table->unsignedBigInteger('uf_id');
-            $table->foreign('uf_id')->references('id')->on('ufs');
+            $table->unsignedBigInteger('ufs_id');
+            $table->foreign('ufs_id')->references('id')->on('ufs');
 
             $table->timestamps();
         });
@@ -141,18 +132,67 @@ class ProyectoMigrate extends Migration{
     }
 
     public function down(){
-
-        Schema::dropIfExists('logs');
+        
         Schema::dropIfExists('terms');
+
+        Schema::table("careers", function(Blueprint $table){
+            $table->dropColumn('term_id');
+        });
+
         Schema::dropIfExists('careers');
+
+        Schema::table("mps", function(Blueprint $table){
+            $table->dropColumn('career_id');
+        });
+
         Schema::dropIfExists('mps');
+
+        Schema::table("ufs", function(Blueprint $table){
+            $table->dropColumn('mps_id');
+        });
         Schema::dropIfExists('ufs');
+
+        Schema::table("enrolments", function(Blueprint $table){
+            $table->dropColumn('user_id');
+            $table->dropColumn('term_id');
+            $table->dropColumn('career_id');
+        });
         Schema::dropIfExists('enrolments');
+
+        Schema::table("records", function(Blueprint $table){
+            $table->dropColumn('user_id');
+            $table->dropColumn('ufs_id');
+        });
         Schema::dropIfExists('records');
-        Schema::dropIfExists('profilereq');
+
+        Schema::table("requirements", function(Blueprint $table){
+            $table->dropColumn('profile_id');
+        });
         Schema::dropIfExists('requirements');
+
+        Schema::dropIfExists('profire_req');
+
+
+        Schema::table("reqenrol", function(Blueprint $table){
+            $table->dropColumn('req_id');
+            $table->dropColumn('enrolments_id');
+
+        });
         Schema::dropIfExists('reqenrol');
+        
+        Schema::table("enrolemntufs", function(Blueprint $table){
+            $table->dropColumn('enrolments_id');
+           
+
+        });
         Schema::dropIfExists('enrolmentufs');
+
+        Schema::table("uploads", function(Blueprint $table){
+            $table->dropColumn('reqenrol_id');
+           
+
+        });
         Schema::dropIfExists('uploads');
+        Schema::dropIfExists('logs');
     }
 }
