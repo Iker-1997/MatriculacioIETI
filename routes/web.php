@@ -25,10 +25,10 @@ Route::get('/test', function () {
 Route::get('/dashboard', function () {
     if (Auth::check()) {
         if(Auth::user()->role == "admin"){
-            return view('dashboardadmin');
+            return view('admin');
         }
         if (Auth::user()->role == "alumne") {
-            return view('dashboard');
+            return view('alumne');
         }
     }
 })->middleware(['auth'])->name('dashboard');
@@ -39,7 +39,7 @@ Route::name('admin')
   ->middleware(['auth', 'can:accessAdmin'])
   ->group(function () {
     Route::get('dashboard', function() {
-        return view('dashboardadmin');
+        return view('admin');
     });        
 
     Route::resource('users', 'UserController');
