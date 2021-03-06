@@ -11,9 +11,6 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     You are in Admin Dashboard!
                 </div>
-                <div>
-                    <h1>Bienbenido Aministrador</h1>
-                </div>
             </div>
         </div>
     </div>

@@ -11,9 +11,6 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     You are in ALUMNE Dashboard!
                 </div>
-                <div>
-                    <h1>Bienbenido Alumno</h1>
-                </div>
             </div>
         </div>
     </div>
