@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,26 @@ Route::get('/test', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    if (Auth::check()) {
+        if(Auth::user()->role == "admin"){
+            return view('dashboardadmin');
+        }
+        if (Auth::user()->role == "alumne") {
+            return view('dashboard');
+        }
+    }
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+
+Route::name('admin')
+  ->prefix('admin')
+  ->middleware(['auth', 'can:accessAdmin'])
+  ->group(function () {
+    Route::get('dashboard', function() {
+        return view('dashboardadmin');
+    });        
+
+    Route::resource('users', 'UserController');
+});
+
+require __DIR__ . '/auth.php';
