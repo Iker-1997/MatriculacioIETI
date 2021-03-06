@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
+use App\Models\Terms;
+use App\Http\Controllers\TermsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +24,8 @@ Route::get('/test', function () {
     return view('test');
 });
 
+
+/*User Roles */
 Route::get('/dashboard', function () {
     if (Auth::check()) {
         if(Auth::user()->role == "admin"){
@@ -46,3 +50,6 @@ Route::name('admin')
 });
 
 require __DIR__ . '/auth.php';
+
+/*CRUD Term*/
+
