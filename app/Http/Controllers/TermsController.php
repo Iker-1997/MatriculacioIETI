@@ -43,12 +43,12 @@ class TermsController extends Controller
         $term_id = $request->id;
         $term    = Terms::where("id", $term_id)->update($request->all());
 
-        if($post == 1) {
-            return response()->json(["status" => "success", "message" => "Success! post updated"]);
+        if($term == 1) {
+            return response()->json(["status" => "success", "message" => "Success! term updated"]);
         }
 
         else {
-            return response()->json(["status" => "failed", "message" => "Alert! post not updated"]);
+            return response()->json(["status" => "failed", "message" => "Alert! term not updated"]);
         }
     }
 

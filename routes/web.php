@@ -29,6 +29,8 @@ Route::get('/test', function () {
 
 /*User Roles */
 Route::get('/dashboard', function () {
+
+    //
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 

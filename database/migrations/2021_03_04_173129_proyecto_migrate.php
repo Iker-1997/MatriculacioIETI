@@ -15,7 +15,7 @@ class ProyectoMigrate extends Migration{
             $table->dateTime('end');
             $table->string('name_terms');
             $table->text('description_terms');
-            $table->boolean('active');
+            $table->boolean('active')->default(true);
             $table->softDeletes();
             $table->timestamps();
         });
