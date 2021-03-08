@@ -8,21 +8,59 @@ use App\Models\Terms;
 
 class TermsController extends Controller
 {
+    // ----------- [ post listing ] -------------
     public function index()
     {
-
+        $terms = Terms::latest()->paginate(5);
+        return view('terms', compact('terms'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     */
+// ------------- [ store post ] -----------------
     public function store(Request $request)
     {
+        $request->validate([
+            'start'         =>      'required',
+            'end'           =>      'required',
+            'name'          =>      'required',
+            'description'   =>      'required',
+            'active'        =>      'required',
+        ]);
 
-        /*$cursus = Terms::create($data);
+       $term = Terms::create($request->all());
 
-        return Response::json($cursus);*/
+       if(!is_null($term)) {
+            return response()->json(["status" => "success", "message" => "Success! Terms created.", "data" => $term]);
+       }
+
+       else {
+           return response()->json(["status" => "failed", "message" => "Alert! Terms not created"]);
+       }
     }
 
+// ---------------- [ Update post ] -------------
+    public function update(Request $request)
+    {
+        $term_id = $request->id;
+        $term    = Terms::where("id", $term_id)->update($request->all());
+
+        if($post == 1) {
+            return response()->json(["status" => "success", "message" => "Success! post updated"]);
+        }
+
+        else {
+            return response()->json(["status" => "failed", "message" => "Alert! post not updated"]);
+        }
+    }
+
+// -------------- [ Delete post ] ---------------
+    public function destroy($term_id) {
+        $term = Terms::where("id", $term_id)->delete();
+        if($term == 1) {
+            return response()->json(["status" => "success", "message" => "Success! Terms deleted"]);
+        }
+
+        else {
+            return response()->json(["status" => "failed", "message" => "Alert! Terms not deleted"]);
+        }
+    }
 }

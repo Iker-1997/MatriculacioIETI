@@ -53,3 +53,5 @@ require __DIR__ . '/auth.php';
 
 /*CRUD Term*/
 
+
+Route::resource('terms', TermsController::class);
