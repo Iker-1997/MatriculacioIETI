@@ -46,7 +46,7 @@ return [
         */
         'mysql_logging' => [
             'driver' => 'custom',
-            'handler' => App\Logging\MySQLLoggingHandler::class,
+            'handler' => App\Http\Controllers\MySQLLoggingHandler::class,
             'via' => App\Logging\MySQLCustomLogger::class,
             'level' => 'debug',
         ],
