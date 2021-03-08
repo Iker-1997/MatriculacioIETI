@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,4 +38,9 @@ Route::name('dashboard')
     });        
 
     Route::resource('users', 'UserController');
+});
+
+Route::get("/log", function(){
+    $user = auth::id();
+    Log::channel('mysql_logging')->debug("Checking a new use on web.php", ['user_Id' => $user]);
 });
