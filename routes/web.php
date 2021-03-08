@@ -25,36 +25,35 @@ Route::get('/test', function () {
 });
 
 
-/*User Roles */
-Route::get('/dashboard', function () {
-
-    //
-    return view('dashboard');
+// Redirect user to admin panel or user panel according to their role
+Route::get('/admin', function () {
+    if (Auth::check()) {
+        if(Auth::user()->role == "admin"){
+            return redirect('/admin/dashboard');
+        }
+        if (Auth::user()->role == "alumne") {
+            return view('dashboard');
+        }
+    }
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+Route::get('/admin', function () {
+    return redirect('/admin/dashboard');
+})->middleware(['auth',  'can:accessAdmin'])->name('dashboard');
 
-Route::name('dashboard')
-  ->prefix('admin')
-  ->middleware(['auth', 'can:accessAdmin'])
-  ->group(function () {
-    Route::get('/dashboard', function() {
-        return view('admin');
-    });        
+Route::get('/admin/dashboard', function () {
+    return view('admin');
+})->middleware(['auth',  'can:accessAdmin'])->name('dashboard');
 
-    Route::resource('users', 'UserController');
-});
-
-Route::name('terms')
-  ->prefix('admin')
-  ->middleware(['auth', 'can:accessAdmin'])
-  ->group(function () {
-    Route::get('/admin', function() {
-        return view('terms');
-    });        
-
-  Route::resource('terms', TermsController::class);
-});
+Route::get('/admin/dashboard/cursos', function () {
+    return view('terms');
+})->middleware(['auth',  'can:accessAdmin'])->name('terms');
 
 require __DIR__ . '/auth.php';
 
+
+//Page to test logs, if you enter to this route a log will be written in the logs table
+Route::get("/log", function(){
+    $user = auth::id();
+    Log::channel('mysql_logging')->debug("This is a log example with a user id", ['user_Id' => $user]);
+});
