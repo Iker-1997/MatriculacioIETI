@@ -13,14 +13,13 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-     public function enrolments() {
+    public function enrolments() {
         return $this->belongsTo(Enrolments::class);
     }
 
     public function records() {
         return $this->belongsTo(Records::class);
     }
-
 
     /**
      * The attributes that are mass assignable.
@@ -51,7 +50,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
 
     public function hasRole($role) {     
         $role = (array)$role;    
