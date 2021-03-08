@@ -27,31 +27,20 @@ Route::get('/test', function () {
 
 /*User Roles */
 Route::get('/dashboard', function () {
-    if (Auth::check()) {
-        if(Auth::user()->role == "admin"){
-            return view('admin');
-        }
-        if (Auth::user()->role == "alumne") {
-            return view('dashboard');
-        }
-    }
+    return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+require __DIR__.'/auth.php';
 
-Route::name('admin')
+Route::name('dashboard')
   ->prefix('admin')
-  ->middleware(['auth', 'can:Admin'])
+  ->middleware(['auth', 'can:accessAdmin'])
   ->group(function () {
-    Route::get('dashboard', function() {
+    Route::get('/dashboard', function() {
         return view('admin');
     });        
 
     Route::resource('users', 'UserController');
 });
-
-require __DIR__ . '/auth.php';
-
-/*CRUD Term*/
-
 
 Route::resource('terms', TermsController::class);
