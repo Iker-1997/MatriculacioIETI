@@ -27,6 +27,8 @@ Route::get('/test', function () {
 
 /*User Roles */
 Route::get('/dashboard', function () {
+
+    //
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
@@ -43,7 +45,16 @@ Route::name('dashboard')
     Route::resource('users', 'UserController');
 });
 
+Route::name('terms')
+  ->prefix('admin')
+  ->middleware(['auth', 'can:accessAdmin'])
+  ->group(function () {
+    Route::get('/admin', function() {
+        return view('terms');
+    });        
+
+  Route::resource('terms', TermsController::class);
+});
 
 require __DIR__ . '/auth.php';
 
-Route::resource('terms', TermsController::class);

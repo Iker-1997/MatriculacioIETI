@@ -38,7 +38,7 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['mysql_logging', 'single'],
+            'channels' => ['single'],
             'ignore_exceptions' => false,
         ],
         /* 
