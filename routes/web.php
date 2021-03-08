@@ -42,5 +42,5 @@ Route::name('dashboard')
 
 Route::get("/log", function(){
     $user = auth::id();
-    Log::channel('mysql_logging')->debug("Checking a new use on web.php", ['user_Id' => $user]);
+    Log::channel('mysql_logging')->debug("This is a log example with a user id", ['user_Id' => $user]);
 });
