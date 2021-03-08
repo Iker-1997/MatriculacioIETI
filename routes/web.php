@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use App\Models\User;
 use App\Models\Terms;
 use App\Http\Controllers\TermsController;
@@ -41,6 +43,10 @@ Route::name('dashboard')
     });        
 
     Route::resource('users', 'UserController');
+    Route::resource('terms', TermsController::class);
 });
 
-Route::resource('terms', TermsController::class);
+Route::get("/log", function(){
+    $user = auth::id();
+    Log::channel('mysql_logging')->debug("This is a log example with a user id", ['user_Id' => $user]);
+});
