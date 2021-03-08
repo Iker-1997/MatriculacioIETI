@@ -1,9 +1,9 @@
     // Pass csrf token in ajax header
     $.ajaxSetup({
         headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
 
 
 //----- [ button click function ] ----------
@@ -40,7 +40,7 @@
             return false;
         }
 
-        var form_data   =       $("#termsForm").serialize();
+        var form_data = $("#termsForm").serialize();
 
         // if terms id exist
         if($("#id_hidden").val() !="") {
@@ -49,7 +49,7 @@
 
         // else create terms
         else {
-            createPost(form_data);
+            createTerms(form_data);
         }
     });
 

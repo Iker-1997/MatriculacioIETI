@@ -49,9 +49,16 @@ Route::name('admin')
     Route::resource('users', 'UserController');
 });
 
+Route::name('terms')
+  ->prefix('admin')
+  ->middleware(['auth', 'can:Admin'])
+  ->group(function () {
+    Route::get('terms', function() {
+        return view('terms');
+    });
+
+    /*CRUD Term*/
+    Route::resource('terms', TermsController::class);
+});
 require __DIR__ . '/auth.php';
 
-/*CRUD Term*/
-
-
-Route::resource('terms', TermsController::class);
