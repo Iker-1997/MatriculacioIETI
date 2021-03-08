@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
+use App\Models\Terms;
+use App\Http\Controllers\TermsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +24,8 @@ Route::get('/test', function () {
     return view('test');
 });
 
+
+/*User Roles */
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
@@ -38,3 +42,5 @@ Route::name('dashboard')
 
     Route::resource('users', 'UserController');
 });
+
+Route::resource('terms', TermsController::class);

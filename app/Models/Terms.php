@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Careers;
 use App\Models\Enrolments;
 
-class Term extends Model
+class Terms extends Model
 {
     use HasFactory;
 
