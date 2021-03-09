@@ -17,7 +17,7 @@
         </thead>
         <tbody> 
           @foreach ($terms as $term)
-          <tr>
+          <tr class="text-center">
               <td class="border-2 border-mtr-dark">{{ $term->id }}</td>
               <td class="border-2 border-mtr-dark">{{ $term->start }}</td>
               <td class="border-2 border-mtr-dark">{{ $term->end }}</td>
@@ -25,9 +25,9 @@
               <td class="border-2 border-mtr-dark">{{ $term->description_terms }}</td>
               <td class="border-2 border-mtr-dark">{{ $term->active }}</td>
 
-              <td>
-                <a href="javascript:void(0)" class="btn btn-primary edit" data-id="{{ $term->id }}">Edit</a>
-                <a href="javascript:void(0)" class="btn btn-primary delete" data-id="{{ $term->id }}">Delete</a>
+              <td class="p-2 flex justify-around">
+                <a href="javascript:void(0)" class="bg-mtr-dark p-2 text-white rounded" data-id="{{ $term->id }}">Edit</a>
+                <a href="javascript:void(0)" class="bg-mtr-dark p-2 text-white rounded" data-id="{{ $term->id }}">Delete</a>
               </td>
           </tr>
           @endforeach

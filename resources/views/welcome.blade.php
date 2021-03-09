@@ -23,7 +23,7 @@
             <div class="flex justify-center items-center min-h-screen bg-base">
                 <div class="container bg-admin text-center w-3/4 rounded-xl p-8 shadow-xl">
                     <h1 class="text-4xl md:text-6xl font-bold md:font-semibold text-user">Matriculació IETI</h1>
-                    <p class="my-8 text-base">Lorem ipsum dolor sit orem ipsum dolor sit orem ipsum dolor sit orem ipsum dolor sit orem ipsum dolor sit orem ipsum dolor sit orem ipsum dolor sit orem ipsum dolor sit orem ipsum dolor sit orem ipsum dolor sit</p>
+                    <p class="my-8 text-base">Project that has the functionality of managing the enrollment of an institute, developed by Iker, Jesus, Adrian.</p>
                     <a href="{{ route('login') }}" class="btn-primary bg-mtr-normal">Log in</a>
                 </div>
             </div>
