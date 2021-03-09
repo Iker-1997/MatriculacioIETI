@@ -27,16 +27,9 @@ Route::get('/test', function () {
 });
 
 
-// Redirect user to admin panel or user panel according to their role
-Route::get('/admin', function () {
-    if (Auth::check()) {
-        if(Auth::user()->role == "admin"){
-            return redirect('/admin/dashboard');
-        }
-        if (Auth::user()->role == "alumne") {
-            return view('dashboard');
-        }
-    }
+/*User Roles */
+Route::get('/dashboard', function () {
+    return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
@@ -48,7 +41,6 @@ Route::name('dashboard')
     Route::get('/dashboard', function() {
         return view('admin');
     });        
-
     Route::resource('terms', TermsController::class);
 });
 
