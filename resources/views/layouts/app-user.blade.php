@@ -20,14 +20,14 @@
         <div class="min-h-screen bg-base">
 
             <!-- Page Heading -->
-            <x-header />
+            <x-header-user />
 
             <!-- Page Content -->
             <main>
                 {{ $slot ?? '' }}
             </main>
 
-            <x-footer />
+            <x-footer-user />
         </div>
     </body>
 </html>
