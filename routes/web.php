@@ -41,8 +41,6 @@ Route::name('dashboard')
     Route::get('/dashboard', function() {
         return view('admin');
     });        
-
-    Route::resource('users', 'UserController');
     Route::resource('terms', TermsController::class);
 });
 
