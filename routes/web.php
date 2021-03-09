@@ -39,22 +39,20 @@ Route::get('/admin', function () {
     }
 })->middleware(['auth'])->name('dashboard');
 
-Route::get('/admin', function () {
-    return redirect('/admin/dashboard');
-})->middleware(['auth',  'can:accessAdmin'])->name('dashboard');
+require __DIR__.'/auth.php';
 
-Route::get('/admin/dashboard', function () {
-    return view('admin');
-})->middleware(['auth',  'can:accessAdmin'])->name('dashboard');
+Route::name('dashboard')
+  ->prefix('admin')
+  ->middleware(['auth', 'can:accessAdmin'])
+  ->group(function () {
+    Route::get('/dashboard', function() {
+        return view('admin');
+    });        
 
-Route::get('/admin/dashboard/cursos', function () {
-    return view('terms');
-})->middleware(['auth',  'can:accessAdmin'])->name('terms');
+    Route::resource('users', 'UserController');
+    Route::resource('terms', TermsController::class);
+});
 
-require __DIR__ . '/auth.php';
-
-
-//Page to test logs, if you enter to this route a log will be written in the logs table
 Route::get("/log", function(){
     $user = auth::id();
     Log::channel('mysql_logging')->debug("This is a log example with a user id", ['user_Id' => $user]);
