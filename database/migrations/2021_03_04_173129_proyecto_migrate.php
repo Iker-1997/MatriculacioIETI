@@ -9,13 +9,23 @@ class ProyectoMigrate extends Migration{
 
     public function up()
     {
+
+        Schema::create('logs', function (Blueprint $table){
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->string('lavel');
+            $table->text('message');
+            $table->timestamps();
+        });
+
         Schema::create('terms', function (Blueprint $table){
             $table->id();
             $table->dateTime('start');
             $table->dateTime('end');
             $table->string('name_terms');
             $table->text('description_terms');
-            $table->boolean('active');
+            $table->boolean('active')->default(true);
             $table->softDeletes();
             $table->timestamps();
         });
