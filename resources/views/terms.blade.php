@@ -29,7 +29,7 @@
                 </tr>
               </thead>
               <tbody> 
-                @foreach ($terms ?? '' as $term)
+                @foreach ($terms as $term)
                 <tr>
                     <td>{{ $term->id }}</td>
                     <td>{{ $term->start }}</td>
@@ -46,7 +46,6 @@
                 @endforeach
               </tbody>
             </table>
-             {!! $terms ?? '' ?? ''->links() !!}
         </div>
     </div>        
 </div>
@@ -58,38 +57,46 @@
             <h4 class="modal-title" id="ajaxtermModel"></h4>
           </div>
           <div class="modal-body">
+
             <form action="javascript:void(0)" id="addEdittermForm" name="addEditBookForm" class="form-horizontal" method="POST">
+
               <input type="hidden" name="id" id="id">
+
               <div class="form-group">
                 <label for="name" class="col-sm-2 control-label">Start</label>
                 <div class="col-sm-12">
                   <input type="datetime-local" class="form-control" id="start" name="start" >
                 </div>
-              </div>  
+              </div>
+
               <div class="form-group">
                 <label for="name" class="col-sm-2 control-label">End</label>
                 <div class="col-sm-12">
                   <input type="datetime-local" class="form-control" id="end" name="end">
                 </div>
               </div>
+
               <div class="form-group">
                 <label class="col-sm-2 control-label">Name</label>
                 <div class="col-sm-12">
                   <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name">
                 </div>
               </div>
+
               <div class="form-group">
                 <label class="col-sm-2 control-label">Description</label>
                 <div class="col-sm-12">
                   <input type="text" class="form-control" id="description" name="description" placeholder="Enter Description">
                 </div>
               </div>
+
               <div class="form-group">
                 <label class="col-sm-2 control-label">Active</label>
                 <div class="col-sm-12">
                   <input type="text" class="form-control" id="active" name="active" placeholder="Enter Active">
                 </div>
               </div>
+
               <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-primary" id="btn-save" value="addNewBook">Save changes
                 </button>
