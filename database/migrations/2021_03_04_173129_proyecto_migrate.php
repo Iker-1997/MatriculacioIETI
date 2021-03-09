@@ -9,6 +9,7 @@ class ProyectoMigrate extends Migration{
 
     public function up()
     {
+<<<<<<< HEAD
 
         Schema::create('logs', function (Blueprint $table){
             $table->id();
@@ -20,13 +21,16 @@ class ProyectoMigrate extends Migration{
         });
 
 
+=======
+>>>>>>> fffdf8e3bb14cba0598c0227267561a5b01fb99c
         Schema::create('terms', function (Blueprint $table){
             $table->id();
             $table->dateTime('start');
             $table->dateTime('end');
             $table->string('name_terms');
             $table->text('description_terms');
-            $table->boolean('active');
+            $table->boolean('active')->default(true);
+            $table->softDeletes();
             $table->timestamps();
         });
 
@@ -36,7 +40,8 @@ class ProyectoMigrate extends Migration{
             $table->foreign('term_id')->references('id')->on('terms');
             $table->string('name_careers');
             $table->string('code_careers');
-            $table->text('description_careers');
+            $table->text('family');
+            $table->integer('career_hours');
             $table->timestamps();
         });
 
@@ -46,7 +51,10 @@ class ProyectoMigrate extends Migration{
             $table->foreign('career_id')->references('id')->on('careers');
             $table->string('name_mps');
             $table->string('code_mps');
-            $table->text('description_mps');
+            $table->integer('mp_min_duration');
+            $table->integer('mp_max_duration');
+            $table->date('mp_begin');
+            $table->date('mp_end');
             $table->timestamps();
         });
 
@@ -56,7 +64,7 @@ class ProyectoMigrate extends Migration{
             $table->foreign('mp_id')->references('id')->on('mps');
             $table->string('name_uf');
             $table->string('code_uf');
-            $table->text('description_uf');
+            $table->integer('uf_duration');
             $table->timestamps();
         });
 
@@ -78,8 +86,8 @@ class ProyectoMigrate extends Migration{
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
 
-            $table->unsignedBigInteger('uf_id');
-            $table->foreign('uf_id')->references('id')->on('ufs');
+            $table->unsignedBigInteger('ufs_id');
+            $table->foreign('ufs_id')->references('id')->on('ufs');
 
             $table->timestamps();
         });
@@ -113,9 +121,10 @@ class ProyectoMigrate extends Migration{
  
         Schema::create('enrolmentufs', function (Blueprint $table){
             $table->id();
-             $table->unsignedBigInteger('enrolments_id');
+            $table->unsignedBigInteger('enrolments_id');
             $table->foreign('enrolments_id')->references('id')->on('enrolments');
-
+            $table->unsignedBigInteger('ufs_id');
+            $table->foreign('ufs_id')->references('id')->on('ufs');
             $table->timestamps();
         });
 
@@ -126,20 +135,79 @@ class ProyectoMigrate extends Migration{
             $table->foreign('reqenrol_id')->references('id')->on('reqenrol');
             $table->timestamps();
         });
+
+        Schema::create('logs', function (Blueprint $table){
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->string('level');
+            $table->text('message');
+            $table->timestamps();
+        });
     }
 
     public function down(){
-
+        
         Schema::dropIfExists('terms');
+
+        Schema::table("careers", function(Blueprint $table){
+            $table->dropColumn('term_id');
+        });
+
         Schema::dropIfExists('careers');
+
+        Schema::table("mps", function(Blueprint $table){
+            $table->dropColumn('career_id');
+        });
+
         Schema::dropIfExists('mps');
+
+        Schema::table("ufs", function(Blueprint $table){
+            $table->dropColumn('mps_id');
+        });
         Schema::dropIfExists('ufs');
+
+        Schema::table("enrolments", function(Blueprint $table){
+            $table->dropColumn('user_id');
+            $table->dropColumn('term_id');
+            $table->dropColumn('career_id');
+        });
         Schema::dropIfExists('enrolments');
+
+        Schema::table("records", function(Blueprint $table){
+            $table->dropColumn('user_id');
+            $table->dropColumn('ufs_id');
+        });
         Schema::dropIfExists('records');
-        Schema::dropIfExists('profilereq');
+
+        Schema::table("requirements", function(Blueprint $table){
+            $table->dropColumn('profile_id');
+        });
         Schema::dropIfExists('requirements');
+
+        Schema::dropIfExists('profire_req');
+
+
+        Schema::table("reqenrol", function(Blueprint $table){
+            $table->dropColumn('req_id');
+            $table->dropColumn('enrolments_id');
+
+        });
         Schema::dropIfExists('reqenrol');
+        
+        Schema::table("enrolemntufs", function(Blueprint $table){
+            $table->dropColumn('enrolments_id');
+           
+
+        });
         Schema::dropIfExists('enrolmentufs');
+
+        Schema::table("uploads", function(Blueprint $table){
+            $table->dropColumn('reqenrol_id');
+           
+
+        });
         Schema::dropIfExists('uploads');
+        Schema::dropIfExists('logs');
     }
 }

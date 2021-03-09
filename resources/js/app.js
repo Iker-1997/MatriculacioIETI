@@ -8,6 +8,7 @@ require('./bootstrap');
 
 <<<<<<< HEAD
 require('alpinejs');
+<<<<<<< HEAD
 =======
 window.Vue = require('vue').default;
 
@@ -34,3 +35,6 @@ const app = new Vue({
     el: '#app',
 });
 >>>>>>> adri
+=======
+
+>>>>>>> fffdf8e3bb14cba0598c0227267561a5b01fb99c

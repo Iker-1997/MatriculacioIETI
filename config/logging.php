@@ -4,6 +4,7 @@ use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
 
+
 return [
 
     /*
@@ -39,6 +40,15 @@ return [
             'driver' => 'stack',
             'channels' => ['single'],
             'ignore_exceptions' => false,
+        ],
+        /* 
+        Log to MySQL
+        */
+        'mysql_logging' => [
+            'driver' => 'custom',
+            'handler' => App\Http\Controllers\MySQLLoggingHandler::class,
+            'via' => App\Logging\MySQLCustomLogger::class,
+            'level' => 'debug',
         ],
 
         'single' => [
@@ -100,5 +110,4 @@ return [
             'path' => storage_path('logs/laravel.log'),
         ],
     ],
-
 ];
