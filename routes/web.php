@@ -22,37 +22,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 Route::get('/test', function () {
     return view('test');
 });
 
 
 /*User Roles */
->>>>>>> fffdf8e3bb14cba0598c0227267561a5b01fb99c
 Route::get('/dashboard', function () {
-
-    //
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
-<<<<<<< HEAD
-=======
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('/admin_dashboard', 'Admin\DashboardController@index')->middleware('role:admin');
-Route::get('/seller_dashboard', 'Seller\DashboardController@index')->middleware('role:seller');
->>>>>>> adri
-=======
 
 Route::name('dashboard')
   ->prefix('admin')
@@ -70,4 +50,3 @@ Route::get("/log", function(){
     $user = auth::id();
     Log::channel('mysql_logging')->debug("This is a log example with a user id", ['user_Id' => $user]);
 });
->>>>>>> fffdf8e3bb14cba0598c0227267561a5b01fb99c
