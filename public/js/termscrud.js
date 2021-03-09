@@ -9,7 +9,7 @@ $(document).ready(function($){
        $('#ajaxtermModel').html("Add Term");
        $('#ajax-term-model').modal('show');
     });
- 
+
     $('body').on('click', '.edit', function () {
         if (confirm("Edit Record?") == true) {
             var id = $(this).data('id');
@@ -35,6 +35,7 @@ $(document).ready(function($){
         }
     });
 
+
     $('body').on('click', '.delete', function () {
        if (confirm("Delete Record?") == true) {
         var name = $(this).data('name');
@@ -52,12 +53,11 @@ $(document).ready(function($){
           }).fail( function(res) {
               alert("fail!");
           });
-
        }
     });
 
+
     $('body').on('click', '#btn-save', function (event) {
-        if (confirm("Create Record?") == true) {
             var id = $("#id").val();
             var start = $("#start").val();
             var end = $("#end").val();
@@ -66,8 +66,6 @@ $(document).ready(function($){
             var active = $("#active").val();
             $("#btn-save").html('Please Wait...');
             $("#btn-save"). attr("disabled", true);
-            alert("deleting");
-        // ajax
         $.ajax({
             type:"POST",
             url: "/admin/terms/",
@@ -77,8 +75,7 @@ $(document).ready(function($){
               end:end,
               name:name,
               description:description,
-              active:active,
-            },
+              active:active},
             dataType: 'json',
             }).done( function(res){
               alert("success!");
@@ -87,7 +84,6 @@ $(document).ready(function($){
               window.location.reload();
           }).fail( function(res) {
               alert("fail!");
-          });
-           }
+        });
     });
 });

@@ -29,7 +29,7 @@
                 </tr>
               </thead>
               <tbody> 
-                @foreach ($terms as $term)
+                @foreach ($terms ?? '' as $term)
                 <tr>
                     <td>{{ $term->id }}</td>
                     <td>{{ $term->start }}</td>
@@ -46,7 +46,7 @@
                 @endforeach
               </tbody>
             </table>
-             {!! $terms->links() !!}
+             {!! $terms ?? '' ?? ''->links() !!}
         </div>
     </div>        
 </div>
