@@ -9,7 +9,6 @@ class ProyectoMigrate extends Migration{
 
     public function up()
     {
-<<<<<<< HEAD
 
         Schema::create('logs', function (Blueprint $table){
             $table->id();
@@ -20,9 +19,6 @@ class ProyectoMigrate extends Migration{
             $table->timestamps();
         });
 
-
-=======
->>>>>>> fffdf8e3bb14cba0598c0227267561a5b01fb99c
         Schema::create('terms', function (Blueprint $table){
             $table->id();
             $table->dateTime('start');
