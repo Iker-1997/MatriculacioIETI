@@ -11,7 +11,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     You are in Admin Dashboard!
                     <br>
-                    <p><a href="dashboard/terms">TERMS</a></p>
+                    <p><a href="Dashboard/terms">TERMS</a></p>
                 </div>
             </div>
         </div>
