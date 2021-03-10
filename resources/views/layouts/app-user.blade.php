@@ -7,8 +7,6 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
@@ -22,14 +20,14 @@
         <div class="min-h-screen bg-base">
 
             <!-- Page Heading -->
-            <x-header />
+            <x-header-user />
 
             <!-- Page Content -->
             <main>
                 {{ $slot ?? '' }}
             </main>
 
-            <x-footer />
+            <x-footer-user />
         </div>
     </body>
 </html>
