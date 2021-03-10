@@ -32,11 +32,6 @@
           @endforeach
         </tbody>
       </table>
-      {!! $terms->links() !!}
   </div>
-
   <script src="{{asset('js/termscrud.js')}}"></script>
-
-
 </x-app-layout>
->>>>>>> 6e357c588ce9f015e32d4e89dbfc8ad51422b9d3

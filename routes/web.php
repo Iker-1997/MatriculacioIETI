@@ -22,27 +22,36 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/test', function () {
-    return view('test');
-});
-
-
-/*User Roles */
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+// Redirect user to admin panel or student panel.
+Route::get('/dashboard', function () {
+    if (Auth::check()) {
+        if(Auth::user()->role == "admin"){
+            return redirect('/admin/dashboard');
+        }
+        if (Auth::user()->role == "student") {
+            return view('dashboard');
+        }
+    }
+})->middleware(['auth'])->name('dashboard');
 
-Route::name('dashboard')
-  ->prefix('admin')
-  ->middleware(['auth', 'can:accessAdmin'])
-  ->group(function () {
-    Route::get('/dashboard', function() {
-        return view('admin');
-    });        
-    Route::resource('/terms', TermsController::class);
-});
+Route::get('/admin', function () {
+    return redirect('/admin/dashboard');
+})->middleware(['auth',  'can:accessAdmin'])->name('dashboard');
+
+Route::get('/admin/dashboard', function () {
+    return view('admin');
+})->middleware(['auth',  'can:accessAdmin'])->name('dashboard');
+
+Route::get('/admin/dashboard/terms', function () {
+    $data = Terms::all();
+    return view('terms', ['terms' => $data]);
+})->middleware(['auth',  'can:accessAdmin'])->name('terms');
+
+require __DIR__.'/auth.php';
 
 Route::get("/log", function(){
     $user = auth::id();
