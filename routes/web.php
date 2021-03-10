@@ -1,6 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use App\Models\User;
+use App\Models\Terms;
+use App\Http\Controllers\TermsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,8 +22,29 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/test', function () {
+    return view('test');
+});
+
+
+/*User Roles */
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+
+Route::name('dashboard')
+  ->prefix('admin')
+  ->middleware(['auth', 'can:accessAdmin'])
+  ->group(function () {
+    Route::get('/dashboard', function() {
+        return view('admin');
+    });        
+    Route::resource('terms', TermsController::class);
+});
+
+Route::get("/log", function(){
+    $user = auth::id();
+    Log::channel('mysql_logging')->debug("This is a log example with a user id", ['user_Id' => $user]);
+});
