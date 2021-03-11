@@ -33,4 +33,5 @@
         </tbody>
       </table>
   </div>
+  <script src="{{asset('js/studentcrud.js')}}"></script>
 </x-app-layout>
