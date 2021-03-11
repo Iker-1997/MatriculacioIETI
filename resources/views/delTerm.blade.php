@@ -1,22 +1,10 @@
-@extends('layouts.app')
+<x-app-layout>
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                    {{ __('Hello SELLER, You are logged in!') }}
-                </div>
-            </div>
+    <div class="py-12">
+        <div class="container flex justify-around">
+            <a href="/admin/terms" class="mx-3 bg-mtr-dark p-5 w-4/12 text-center font-extrabold rounded-sm text-base">VIEW TERMS</a>
+            <a href="" class="mx-3 bg-mtr-dark p-5 w-4/12 text-center font-extrabold rounded-sm text-base">VIEW ALUMNS</a>
         </div>
     </div>
-</div>
-@endsection
+
+</x-app-layout>
