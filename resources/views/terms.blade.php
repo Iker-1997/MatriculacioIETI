@@ -1,5 +1,4 @@
 <x-app-layout>
-
   <div class="text-center"><button type="button" id="addNewterm" class="m-3 bg-mtr-dark p-1 w-4/12 text-center font-extrabold rounded-sm text-base">Add Terms</button></div>
   <div class="p-3">
       <table class="w-full border-2 border-mtr-dark table-auto">
@@ -33,10 +32,6 @@
           @endforeach
         </tbody>
       </table>
-      {!! $terms->links() !!}
   </div>
-
   <script src="{{asset('js/termscrud.js')}}"></script>
-
-
 </x-app-layout>
