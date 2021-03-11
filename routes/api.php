@@ -15,11 +15,8 @@ use App\Http\Controllers\TermsController;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::middleware('auth:api')->get('/terms/delete/{id}', function (Request $request) {
+// Delete terms. ONLY ADMIN.
+Route::middleware(['auth', 'can:accessAdmin'])->get('/terms/delete/{id}', function (Request $request) {
     $term = new TermsController;
     return $term->destroy($request->route('id'));
 });
