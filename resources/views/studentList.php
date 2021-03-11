@@ -15,7 +15,7 @@
           </tr>
         </thead>
         <tbody> 
-          @foreach ($students as $student)
+          @foreach ($studentList as $student)
           <tr class="text-center">
               <td class="border-2 border-mtr-dark">{{ $student->id }}</td>
               <td class="border-2 border-mtr-dark">{{ $student->start }}</td>

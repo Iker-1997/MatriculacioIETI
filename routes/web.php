@@ -5,7 +5,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Models\User;
 use App\Models\Terms;
+use App\Models\Enrolements;
 use App\Http\Controllers\TermsController;
+use App\Http\Controllers\StudentListController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +56,11 @@ Route::get('/admin/dashboard/terms', function () {
     $data = Terms::all();
     return view('terms', ['terms' => $data]);
 })->middleware(['auth',  'can:accessAdmin'])->name('terms');
+
+Route::get('/admin/dashboard/studentList', function () {
+    $data = Enrolements::all();
+    return view('studentList', ['studentList' => $data]);
+})->middleware(['auth',  'can:accessAdmin'])->name('studentList');
 
 require __DIR__.'/auth.php';
 
