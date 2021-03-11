@@ -11,14 +11,14 @@ class TermsController extends Controller
     // ----------- [ post listing ] -------------
     public function index()
     {
-        $terms = Terms::latest()->paginate(5);
+        $terms = Terms::all();
         return view('terms', compact('terms'));
     }
 
 // ------------- [ store post ] -----------------
-    public function store(Request $request)
+    public function store(Terms $term)
     {
-       $request->validate([
+       $term->validate([
             'start'         =>      'required',
             'end'           =>      'required',
             'name'          =>      'required',

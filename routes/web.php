@@ -3,9 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+
 use App\Models\User;
 use App\Models\Terms;
-use App\Models\Enrolements;
+use App\Models\Enrolments;
+
 use App\Http\Controllers\TermsController;
 use App\Http\Controllers\StudentListController;
 
@@ -52,13 +54,16 @@ Route::get('/admin/dashboard', function () {
     return view('admin');
 })->middleware(['auth',  'can:accessAdmin'])->name('dashboard');
 
+// Cursos
 Route::get('/admin/dashboard/terms', function () {
     $data = Terms::all();
     return view('terms', ['terms' => $data]);
 })->middleware(['auth',  'can:accessAdmin'])->name('terms');
 
+
+// STUDENTS
 Route::get('/admin/dashboard/studentList', function () {
-    $data = Enrolements::all();
+    $data = Enrolments::all();
     return view('studentList', ['studentList' => $data]);
 })->middleware(['auth',  'can:accessAdmin'])->name('studentList');
 
