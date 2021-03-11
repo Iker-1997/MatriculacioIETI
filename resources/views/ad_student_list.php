@@ -15,23 +15,23 @@
           </tr>
         </thead>
         <tbody> 
-          @foreach ($terms as $term)
+          @foreach ($students as $student)
           <tr class="text-center">
-              <td class="border-2 border-mtr-dark">{{ $term->id }}</td>
-              <td class="border-2 border-mtr-dark">{{ $term->start }}</td>
-              <td class="border-2 border-mtr-dark">{{ $term->end }}</td>
-              <td class="border-2 border-mtr-dark">{{ $term->name_terms }}</td>
-              <td class="border-2 border-mtr-dark">{{ $term->description_terms }}</td>
-              <td class="border-2 border-mtr-dark">{{ $term->active }}</td>
+              <td class="border-2 border-mtr-dark">{{ $student->id }}</td>
+              <td class="border-2 border-mtr-dark">{{ $student->start }}</td>
+              <td class="border-2 border-mtr-dark">{{ $student->end }}</td>
+              <td class="border-2 border-mtr-dark">{{ $student->name_terms }}</td>
+              <td class="border-2 border-mtr-dark">{{ $student->description_terms }}</td>
+              <td class="border-2 border-mtr-dark">{{ $student->active }}</td>
 
               <td class="p-2 flex justify-around">
-                <a href="javascript:void(0)" class="bg-mtr-dark p-2 text-white rounded" data-id="{{ $term->id }}">Edit</a>
-                <a href="javascript:void(0)" class="bg-mtr-dark p-2 text-white rounded" data-id="{{ $term->id }}">Delete</a>
+                <a href="javascript:void(0)" class="bg-mtr-dark p-2 text-white rounded" data-id="{{ $student->id }}">Edit</a>
+                <a href="javascript:void(0)" class="bg-mtr-dark p-2 text-white rounded" data-id="{{ $student->id }}">Delete</a>
               </td>
           </tr>
           @endforeach
         </tbody>
       </table>
   </div>
-  <script src="{{asset('js/termscrud.js')}}"></script>
+  <script src="{{asset('js/studentcrud.js')}}"></script>
 </x-app-layout>

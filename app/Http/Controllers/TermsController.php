@@ -18,7 +18,7 @@ class TermsController extends Controller
 // ------------- [ store post ] -----------------
     public function store(Request $request)
     {
-        $request->validate([
+       $request->validate([
             'start'         =>      'required',
             'end'           =>      'required',
             'name'          =>      'required',
@@ -35,6 +35,7 @@ class TermsController extends Controller
        else {
            return response()->json(["status" => "failed", "message" => "Alert! Terms not created"]);
        }
+    
     }
 
 // ---------------- [ Update post ] -------------
