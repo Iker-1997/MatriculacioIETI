@@ -10,31 +10,23 @@ $(document).ready(function($){
        $('#ajax-term-model').modal('show');
     });
 
-    $('body').on('click', '.edit', function () {
-        if (confirm("Edit Record?") == true) {
-            var id = $(this).data('id');
-        // ajax
+    $(document).on("click", ".edit" , function() {
+      var edit_id = $(this).data('id');
+      var name = $('#name_'+edit_id).val();
+      var description = $('#description'+edit_id).val();
+      if(name != '' && description != ''){
         $.ajax({
-            type:"PUT",
-            url: "/admin/terms/"+id,
-            data: { id:id },
-            dataType: 'json',
-            }).done( function(res){
-              $('#ajaxtermModel').html("Edit Terms");
-              $('#ajax-term-model').modal('show');
-              $('#id').val(res.id);
-              $('#start').val(res.start);
-              $('#end').val(res.end);
-              $('#name').val(res.name);
-              $('#description').val(res.description);
-              $('#active').val(res.active);
+          url: "/admin/terms/"+edit_id,
+          type: 'put',
+          data: {editid: edit_id,name: name,description: description},
+          }).done( function(res){
               alert("success!");
-            }).fail( function(res) {
+              window.location.reload();
+          }).fail( function(res) {
               alert("fail!");
           });
         }
-    });
-
+      });
 
     $('body').on('click', '.delete', function () {
        if (confirm("Delete Record?") == true) {
@@ -56,7 +48,26 @@ $(document).ready(function($){
        }
     });
 
-
+    $(".btn-submit").click(function(e){
+  
+        e.preventDefault();
+   
+        var name = $("input[name=name]").val();
+        var description = $("input[name=description]").val();
+        var start = $("input[name=start]").val();
+        var end = $("input[name=end]").val();
+   
+        $.ajax({
+           type:'POST',
+           url:"/admin/terms/",
+           data:{name:name, description:description, start:start, end:end},
+           success:function(data){
+              alert(data.success);
+           }
+        });
+  
+    });
+    /*
     $('body').on('click', '#btn-save', function (event) {
             var id = $("#id").val();
             var start = $("#start").val();
@@ -70,7 +81,6 @@ $(document).ready(function($){
             type:"POST",
             url: "/admin/terms/",
             data: {
-              id:id,
               start:start,
               end:end,
               name:name,
@@ -86,4 +96,5 @@ $(document).ready(function($){
               alert("fail!");
         });
     });
+    */
 });
