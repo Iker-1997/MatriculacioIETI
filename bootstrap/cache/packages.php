@@ -10,6 +10,13 @@
       'Breadcrumbs' => 'DaveJamesMiller\\Breadcrumbs\\Facades\\Breadcrumbs',
     ),
   ),
+  'david-griffiths/nova-dark-theme' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'DavidGriffiths\\NovaDarkTheme\\ThemeServiceProvider',
+    ),
+  ),
   'facade/ignition' => 
   array (
     'providers' => 

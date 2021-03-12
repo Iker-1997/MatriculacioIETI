@@ -23,7 +23,9 @@
 
             <!-- Page Heading -->
             <x-header />
-
+            <div class="col-md-8">
+                @yield('breadcrumbs')
+            </div>
             <!-- Page Content -->
             <main>
                 {{ $slot ?? '' }}

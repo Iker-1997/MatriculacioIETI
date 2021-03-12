@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 
 use App\Models\User;
 use App\Models\Terms;
@@ -46,6 +47,8 @@ Route::get('/dashboard', function () {
     }
 })->middleware(['auth'])->name('dashboard');
 
+/* ------------- AdminPanel --------------------*/
+
 Route::get('/admin', function () {
     return redirect('/admin/dashboard');
 })->middleware(['auth',  'can:accessAdmin'])->name('dashboard');
@@ -54,21 +57,24 @@ Route::get('/admin/dashboard', function () {
     return view('admin');
 })->middleware(['auth',  'can:accessAdmin'])->name('dashboard');
 
-// Cursos
+/* ------------- Cursos --------------------*/
 Route::get('/admin/dashboard/terms', function () {
     $data = Terms::all();
     return view('terms', ['terms' => $data]);
 })->middleware(['auth',  'can:accessAdmin'])->name('terms');
 
 
-// STUDENTS
+/* ------------- Student --------------------*/
 Route::get('/admin/dashboard/studentList', function () {
     $data = Enrolments::all();
     return view('studentList', ['studentList' => $data]);
 })->middleware(['auth',  'can:accessAdmin'])->name('studentList');
 
+
 require __DIR__.'/auth.php';
 
+
+/* ------------- Log --------------------*/
 Route::get("/log", function(){
     $user = auth::id();
     Log::channel('mysql_logging')->debug("This is a log example with a user id", ['user_Id' => $user]);
