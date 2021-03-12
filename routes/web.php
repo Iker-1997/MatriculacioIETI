@@ -57,6 +57,18 @@ Route::get('/admin/dashboard/terms', function () {
 
 require __DIR__.'/auth.php';
 
+// Delete routes
+Route::name('termsDelete')
+  ->prefix('admin')
+  ->middleware(['auth', 'can:accessAdmin'])
+  ->group(function () {
+    Route::get('/terms/delete/{id}', function() {
+        return view('delTerm');
+    });        
+    Route::resource('terms', TermsController::class);
+});
+
+// Logs route
 Route::get("/log", function(){
     $user = auth::id();
     Log::channel('mysql_logging')->debug("This is a log example with a user id", ['user_Id' => $user]);
