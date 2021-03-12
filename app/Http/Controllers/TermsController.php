@@ -22,10 +22,11 @@ class TermsController extends Controller
         $data = json_decode($info, true);
 
         // Insert the new data into the table
-        $term = DB::insert('insert into terms (start, end, name_terms, description_terms) values (?, ?, ?, ?)', [$data['start'], $data['end'], $data['name'], $data['desc']]);
+        $term = DB::insert('insert into terms (start, end, name_terms, description_terms, created_at, updated_at) values (?, ?, ?, ?, ?, ?)', [date("Y-m-d H:i", strtotime($data['start']) ), date("Y-m-d H-i", strtotime($data['end'])), $data['name'], $data['desc'], date("Y-m-d H:i:s"), date("Y-m-d H:i:s")]);
 
         if($term == 1) {
-            return response()->json(["status" => "success", "message" => "Success! term created"]);
+            $id = DB::getPDO()->lastInsertId();
+            return response()->json(["status" => "success", "message" => "Success! term created", "id" => $id]);
         }
 
         else {
