@@ -9,6 +9,13 @@ Breadcrumbs::for('terms', function ($trail) {
     $trail->parent('dashboard');
     $trail->push('Terms', route('terms'));
 });
+
+// Inicio > alumne
+Breadcrumbs::for('ad_student_list', function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push('ad_student_list', route('ad_student_list'));
+});
+
 // Inicio > Cursos > [Cycles]
 Breadcrumbs::for('Cycles', function ($trail, $cycle) {
     $trail->parent('Cycles');

@@ -1,5 +1,5 @@
 @section('breadcrumbs')
-  {{ Breadcrumbs::render('student') }}
+  {{ Breadcrumbs::render('ad_student_list') }}
 @endsection
 <x-app-layout>
   <script src="{{asset('js/breadcrumb.js')}}"></script>

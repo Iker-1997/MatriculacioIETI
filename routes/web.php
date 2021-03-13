@@ -65,14 +65,24 @@ Route::get('/admin/dashboard/terms', function () {
 
 
 /* ------------- Student --------------------*/
-Route::get('/admin/dashboard/studentList', function () {
+Route::get('/admin/dashboard/ad_student_list', function () {
     $data = Enrolments::all();
-    return view('studentList', ['studentList' => $data]);
-})->middleware(['auth',  'can:accessAdmin'])->name('studentList');
+    return view('ad_student_list', ['ad_student_list' => $data]);
+})->middleware(['auth',  'can:accessAdmin'])->name('ad_student_list');
 
 
 require __DIR__.'/auth.php';
 
+/*------------- Delete routes--------------------*/
+Route::name('termsDelete')
+  ->prefix('admin')
+  ->middleware(['auth', 'can:accessAdmin'])
+  ->group(function () {
+    Route::get('/terms/delete/{id}', function() {
+        return view('delTerm');
+    });        
+    Route::resource('terms', TermsController::class);
+});
 
 /* ------------- Log --------------------*/
 Route::get("/log", function(){
