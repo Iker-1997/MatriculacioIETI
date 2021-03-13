@@ -23,6 +23,8 @@
 
             <!-- Page Heading -->
             <x-header />
+            @include('flash-message')
+
             <div class="col-md-8">
                 @yield('breadcrumbs')
             </div>

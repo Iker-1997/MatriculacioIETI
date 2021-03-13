@@ -2,6 +2,7 @@
   {{ Breadcrumbs::render('terms') }}
 @endsection
 <x-app-layout>
+  <script src="{{asset('js/breadcrumb.js')}}"></script>
   <div class="text-center">
     <button type="button" id="addNewterm" class="m-3 bg-mtr-dark p-1 w-4/12 text-center font-extrabold rounded-sm text-base">Add Terms</button>
   </div>
@@ -39,9 +40,4 @@
       </table>
   </div>
   <script src="{{asset('js/termscrud.js')}}"></script>
-  <script>
-    /*$(document).ready(function(){
-        $(".breadcrumb:first").addClass("p-4 flex bg-blue-200 space-x-3 items-center");
-      });*/
-  </script>
 </x-app-layout>
