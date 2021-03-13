@@ -15,27 +15,33 @@ use App\Http\Controllers\TermsController;
 |
 */
 
-// Delete terms. ADMIN ONLY (When checking, delete middleware, and leave it like Route::get...
-Route::middleware(['auth', 'can:accessAdmin'])->get('/terms/delete/{id}', function (Request $request) {
+// Delete terms. ADMIN ONLY (When checking, delete middleware, and leave it like Route::get...)
+Route::/*middleware(['auth', 'can:accessAdmin'])->*/get('/terms/delete/{id}', function (Request $request) {
     $term = new TermsController;
     return $term->destroy($request->route('id'));
 });
 
-// Update terms. ADMIN ONLY (When checking, delete middleware, and leave it like Route::get...
+// Update terms. ADMIN ONLY (When checking, delete middleware, and leave it like Route::get...)
 Route::middleware(['auth', 'can:accessAdmin'])->get('/terms/update/{id}/{start}/{end}/{name}/{desc}', function (Request $request) {
     $term = new TermsController;
     return $term->update(json_encode([  "id" => $request->route('id'),
                                         "start" => $request->route('start'),
                                         "end" => $request->route('end'),
-                                        "name" => $request->route('name'),
-                                        "desc" => $request->route('desc')]));
+                                        "name" => rawurldecode($request->route('name')),
+                                        "desc" => rawurldecode($request->route('desc'))]));
 });
 
-// Create new terms. ADMIN ONLY (When checking, delete middleware, and leave it like Route::get...
-Route::middleware(['auth', 'can:accessAdmin'])->get('/terms/create/{start}/{end}/{name}/{desc}', function (Request $request) {
+// Create new terms. ADMIN ONLY (When checking, delete middleware, and leave it like Route::get...)
+Route::/*middleware(['auth', 'can:accessAdmin'])->*/get('/terms/create/{start}/{end}/{name}/{desc}', function (Request $request) {
     $term = new TermsController;
     return $term->store(json_encode([   "start" => $request->route('start'),
                                         "end" => $request->route('end'),
-                                        "name" => $request->route('name'),
-                                        "desc" => $request->route('desc')]));
+                                        "name" => rawurldecode($request->route('name')),
+                                        "desc" => rawurldecode($request->route('desc'))]));
+});
+
+// Show all terms. ADMIN ONLY (When checking, delete middleware, and leave it like Route::get...)
+Route::/*middleware(['auth', 'can:accessAdmin'])->*/get('/terms/updateTable', function (Request $request) {
+    $term = new TermsController;
+    return $term->index();
 });

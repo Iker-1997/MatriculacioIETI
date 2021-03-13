@@ -11,8 +11,9 @@ class TermsController extends Controller
     // ----------- [ post listing ] -------------
     public function index()
     {
-        $terms = Terms::latest()->paginate(5);
-        return view('terms', compact('terms'));
+        $terms = Terms::all();
+        return response()->json($terms);
+        //return view('terms', compact('terms'));
     }
 
 // ------------- [ store post ] -----------------
@@ -22,7 +23,7 @@ class TermsController extends Controller
         $data = json_decode($info, true);
 
         // Insert the new data into the table
-        $term = DB::insert('insert into terms (start, end, name_terms, description_terms, created_at, updated_at) values (?, ?, ?, ?, ?, ?)', [date("Y-m-d H:i", strtotime($data['start']) ), date("Y-m-d H-i", strtotime($data['end'])), $data['name'], $data['desc'], date("Y-m-d H:i:s"), date("Y-m-d H:i:s")]);
+        $term = DB::insert('insert into terms (start, end, name_terms, description_terms, created_at, updated_at) values (?, ?, ?, ?, ?, ?)', [date("Y-m-d H:i", strtotime($data['start']) ), date("Y-m-d H-i", strtotime($data['end'])), $data['name'], $data['desc'], date("Y-m-d H:i:s", strtotime('now')), date("Y-m-d H:i:s", strtotime('now'))]);
 
         if($term == 1) {
             $id = DB::getPDO()->lastInsertId();
@@ -58,7 +59,8 @@ class TermsController extends Controller
 
 // -------------- [ Delete post ] ---------------
     public function destroy($term_id) {
-
+        // The active field is marked as 0 (false)
+        Terms::where("id", $term_id)->update(["active" => 0]);
         // Soft delete the term with the provided id.
         $term = Terms::where("id", $term_id)->delete();
         if($term == 1) {
