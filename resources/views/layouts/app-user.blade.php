@@ -7,6 +7,8 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
@@ -15,19 +17,20 @@
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-base">
+        <div class="min-h-screen bg-base min-w-max">
 
             <!-- Page Heading -->
-            <x-header-user />
+            <x-header />
 
             <!-- Page Content -->
             <main>
                 {{ $slot ?? '' }}
             </main>
 
-            <x-footer-user />
+            <x-footer />
         </div>
     </body>
 </html>
