@@ -2,10 +2,9 @@
   <div class="text-center"><button type="button" id="addNewterm" class="m-3 bg-mtr-dark p-1 w-4/12 text-center font-extrabold rounded-sm text-base">Add Terms</button></div>
   <div class="p-3">
       <table class="w-full border-2 border-mtr-dark table-auto">
-        <caption class="mb-4 text-4xl">TERMS</caption>
+        <caption class="mb-4 text-4xl">STUDENTS</caption>
         <thead>
           <tr>
-            <th class="border-2 border-mtr-dark">ID</th>
             <th class="border-2 border-mtr-dark">Start</th>
             <th class="border-2 border-mtr-dark">End</th>
             <th class="border-2 border-mtr-dark">Name</th>
@@ -17,7 +16,6 @@
         <tbody> 
           @foreach ($students as $student)
           <tr class="text-center">
-              <td class="border-2 border-mtr-dark">{{ $student->id }}</td>
               <td class="border-2 border-mtr-dark">{{ $student->start }}</td>
               <td class="border-2 border-mtr-dark">{{ $student->end }}</td>
               <td class="border-2 border-mtr-dark">{{ $student->name_terms }}</td>
