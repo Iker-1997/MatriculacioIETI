@@ -1,4 +1,15 @@
 <?php return array (
+  'davejamesmiller/laravel-breadcrumbs' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'DaveJamesMiller\\Breadcrumbs\\BreadcrumbsServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Breadcrumbs' => 'DaveJamesMiller\\Breadcrumbs\\Facades\\Breadcrumbs',
+    ),
+  ),
   'facade/ignition' => 
   array (
     'providers' => 
@@ -22,6 +33,17 @@
     'providers' => 
     array (
       0 => 'Fruitcake\\Cors\\CorsServiceProvider',
+    ),
+  ),
+  'laracasts/flash' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Laracasts\\Flash\\FlashServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Flash' => 'Laracasts\\Flash\\Flash',
     ),
   ),
   'laravel/breeze' => 
