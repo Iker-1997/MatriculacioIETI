@@ -35,10 +35,10 @@ class RedirectIfAuthenticated
             $role = Auth::user()->role; 
             switch ($role) {
                 case 'admin':
-                    return redirect('/admin_dashboard');
+                    return redirect('/admin');
                     break;
-                case 'seller':
-                    return redirect('/seller_dashboard');
+                case 'student':
+                    return redirect('/dashboard');
                     break; 
 
                 default:
