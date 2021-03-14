@@ -1,79 +1,73 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Terms;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TermsController;
+use App\Http\Controllers\ProfilereqController;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| API Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register web routes for your application. These
+| Here is where you can register API routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
+| is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
+// ###############################
+// -------- TERMS SECTION --------
+// ###############################
+// Delete terms. ADMIN ONLY (When checking, delete middleware, and leave it like Route::get...)
+Route::middleware(['auth', 'can:accessAdmin'])->get('/terms/delete/{id}', function (Request $request) {
+    $term = new TermsController;
+    return $term->destroy($request->route('id'));
 });
 
-Route::get('/home', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
-// Redirect user to admin panel or student panel.
-Route::get('/dashboard', function () {
-    if (Auth::check()) {
-        if(Auth::user()->role == "admin"){
-            return redirect('/admin/dashboard');
-        }
-        if (Auth::user()->role == "student") {
-            return view('dashboard');
-        }
-    }
-})->middleware(['auth'])->name('dashboard');
-
-Route::get('/admin', function () {
-    return redirect('/admin/dashboard');
-})->middleware(['auth',  'can:accessAdmin'])->name('dashboard');
-
-Route::get('/admin/dashboard', function () {
-    return view('admin');
-})->middleware(['auth',  'can:accessAdmin'])->name('dashboard');
-
-Route::get('/admin/dashboard/terms', function () {
-    $data = Terms::all();
-    return view('terms', ['terms' => $data]);
-})->middleware(['auth',  'can:accessAdmin'])->name('terms');
-
-require __DIR__.'/auth.php';
-
-// Delete routes
-Route::name('termsDelete')
-  ->prefix('admin')
-  ->middleware(['auth', 'can:accessAdmin'])
-  ->group(function () {
-    Route::get('/terms/delete/{id}', function(Request $request){
-        $term = Terms::select('name_terms')
-                     ->where('id', '=', $request->route('id'))
-                     ->get();
-        return view('delTerm', ["term"=>$term]);
-    });        
-    Route::resource('terms', TermsController::class);
+// Update terms. ADMIN ONLY (When checking, delete middleware, and leave it like Route::get...)
+Route::middleware(['auth', 'can:accessAdmin'])->get('/terms/update/{id}/{start}/{end}/{name}/{desc}', function (Request $request) {
+    $term = new TermsController;
+    return $term->update(json_encode([  "id" => $request->route('id'),
+                                        "start" => rawurldecode($request->route('start')),
+                                        "end" => rawurldecode($request->route('end')),
+                                        "name" => rawurldecode($request->route('name')),
+                                        "desc" => rawurldecode($request->route('desc'))]));
 });
 
-// Logs route
-Route::get("/log", function(){
-    $user = auth::id();
-    Log::channel('mysql_logging')->debug("This is a log example with a user id", ['user_Id' => $user]);
+// Create new terms. ADMIN ONLY (When checking, delete middleware, and leave it like Route::get...)
+Route::middleware(['auth', 'can:accessAdmin'])->get('/terms/create/{start}/{end}/{name}/{desc}', function (Request $request) {
+    $term = new TermsController;
+    return $term->store(json_encode([   "start" => $request->route('start'),
+                                        "end" => $request->route('end'),
+                                        "name" => rawurldecode($request->route('name')),
+                                        "desc" => rawurldecode($request->route('desc'))]));
+});
+
+// Show all terms. ADMIN ONLY (When checking, delete middleware, and leave it like Route::get...)
+Route::middleware(['auth', 'can:accessAdmin'])->get('/terms/updateTable', function (Request $request) {
+    $term = new TermsController;
+    return $term->index();
+});
+
+// ###############################
+// --------- PROFILEREQ ---------
+// ###############################
+
+// Delete requirements profile requirements. ADMIN ONLY (When checking, delete middleware, and leave it like Route::get...)
+Route::middleware(['auth', 'can:accessAdmin'])->get('/proreq/delete/{id}', function (Request $request) {
+    $profile= new ProfilereqController;
+    return $profile->destroy($request->route('id'));
+});
+
+// Update requirements profile. ADMIN ONLY (When checking, delete middleware, and leave it like Route::get...)
+Route::middleware(['auth', 'can:accessAdmin'])->get('/proreq/update/{id}/{name}', function (Request $request) {
+    $profile = new ProfilereqController;
+    return $profile->update(json_encode(["id" => $request->route('id'),
+                                        "name" => rawurldecode($request->route('name'))]));
+});
+
+// Create requirements profile. ADMIN ONLY (When checking, delete middleware, and leave it like Route::get...)
+Route::middleware(['auth', 'can:accessAdmin'])->get('/proreq/create/{name}', function (Request $request) {
+    $profile = new ProfilereqController;
+    return $profile->store(json_encode(["name" => rawurldecode($request->route('name'))]));
 });
