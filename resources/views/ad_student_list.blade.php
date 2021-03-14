@@ -24,6 +24,7 @@
               <td class="border-2 border-mtr-dark">{{ $student->name_terms }}</td>
               <td class="border-2 border-mtr-dark">{{ $student->description_terms }}</td>
               <td class="border-2 border-mtr-dark">{{ $student->active }}</td>
+
               <td class="p-2 flex justify-around">
                 <a href="javascript:void(0)" class="bg-mtr-dark p-2 text-white rounded" data-id="{{ $student->id }}">Edit</a>
                 <a href="javascript:void(0)" class="bg-mtr-dark p-2 text-white rounded" data-id="{{ $student->id }}">Delete</a>
