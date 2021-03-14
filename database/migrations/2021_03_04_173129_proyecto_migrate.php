@@ -82,6 +82,7 @@ class ProyectoMigrate extends Migration{
         Schema::create('profilereq', function (Blueprint $table){
             $table->id();
             $table->string('name_profile');
+            $table->softDeletes();
             $table->timestamps();
         });
 
