@@ -35,7 +35,7 @@ Route::middleware(['auth', 'can:accessAdmin'])->get('/terms/update/{id}/{start}/
 });
 
 // Create new terms. ADMIN ONLY (When checking, delete middleware, and leave it like Route::get...)
-Route::middleware(['auth', 'can:accessAdmin'])->get('/terms/create/{start}/{end}/{name}/{desc}', function (Request $request) {
+Route::/*middleware(['auth', 'can:accessAdmin'])->*/get('/terms/create/{start}/{end}/{name}/{desc}', function (Request $request) {
     $term = new TermsController;
     return $term->store(json_encode([   "start" => $request->route('start'),
                                         "end" => $request->route('end'),
@@ -44,7 +44,7 @@ Route::middleware(['auth', 'can:accessAdmin'])->get('/terms/create/{start}/{end}
 });
 
 // Show all terms. ADMIN ONLY (When checking, delete middleware, and leave it like Route::get...)
-Route::middleware(['auth', 'can:accessAdmin'])->get('/terms/updateTable', function (Request $request) {
+Route::/*middleware(['auth', 'can:accessAdmin'])->*/get('/terms/updateTable', function (Request $request) {
     $term = new TermsController;
     return $term->index();
 });

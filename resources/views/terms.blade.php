@@ -53,7 +53,8 @@
       let end = $("tr[data-id='"+id+"'] .endEdit").val();
       let name = $("tr[data-id='"+id+"'] .nameEdit").val();
       let desc = $("tr[data-id='"+id+"'] .descEdit").val();
-      $.post({
+
+      $.get({
         url:"/api/terms/update/"+id+"/"+start+"/"+end+"/"+name+"/"+desc,
       }).done(function (){
         $('tbody').empty();
@@ -77,7 +78,8 @@
       let end = $("#end").val();
       let name = $("#name").val();
       let desc = $("#description").val();
-      $.post({
+
+      $.get({
         url:"/api/terms/create/"+start+"/"+end+"/"+name+"/"+desc,
       }).done(function (){
         $('tbody').empty();
