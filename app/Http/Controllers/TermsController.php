@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 use App\Models\Terms;
 
 class TermsController extends Controller
@@ -11,38 +11,42 @@ class TermsController extends Controller
     // ----------- [ post listing ] -------------
     public function index()
     {
-        $terms = Terms::latest()->paginate(5);
-        return view('terms', compact('terms'));
+        $terms = Terms::all();
+        return response()->json($terms);
+        //return view('terms', compact('terms'));
     }
 
 // ------------- [ store post ] -----------------
-    public function store(Request $request)
+    public function store($info)
     {
-       $request->validate([
-            'start'         =>      'required',
-            'end'           =>      'required',
-            'name'          =>      'required',
-            'description'   =>      'required',
-            'active'        =>      'required',
-        ]);
+        // Decode the JSON data
+        $data = json_decode($info, true);
 
-       $term = Terms::create($request->all());
+        // Insert the new data into the table
+        $term = DB::insert('insert into terms (start, end, name_terms, description_terms, created_at, updated_at) values (?, ?, ?, ?, ?, ?)', [date("Y-m-d H:i", strtotime($data['start']) ), date("Y-m-d H-i", strtotime($data['end'])), $data['name'], $data['desc'], date("Y-m-d H:i:s", strtotime('now')), date("Y-m-d H:i:s", strtotime('now'))]);
 
-       if(!is_null($term)) {
-            return response()->json(["status" => "success", "message" => "Success! Terms created.", "data" => $term]);
-       }
+        if($term == 1) {
+            $id = DB::getPDO()->lastInsertId();
+            return response()->json(["status" => "success", "message" => "Success! term created", "id" => $id]);
+        }
 
-       else {
-           return response()->json(["status" => "failed", "message" => "Alert! Terms not created"]);
-       }
-    
+        else {
+            return response()->json(["status" => "failed", "message" => "Alert! term not created"]);
+        }
     }
 
 // ---------------- [ Update post ] -------------
-    public function update(Request $request)
+    public function update($data)
     {
-        $term_id = $request->id;
-        $term    = Terms::where("id", $term_id)->update($request->all());
+        // Decode the JSON data
+        $info = json_decode($data, true);
+
+        // Look for the term with the provided ID, and update all fields.
+        $term   = Terms::where("id", $info["id"])
+                ->update(["start" => $info["start"],
+                          "end" => $info["end"],
+                          "name_terms" => $info["name"],
+                          "description_terms" => $info["desc"]]);
 
         if($term == 1) {
             return response()->json(["status" => "success", "message" => "Success! term updated"]);
@@ -55,6 +59,9 @@ class TermsController extends Controller
 
 // -------------- [ Delete post ] ---------------
     public function destroy($term_id) {
+        // The active field is marked as 0 (false)
+        Terms::where("id", $term_id)->update(["active" => 0]);
+        // Soft delete the term with the provided id.
         $term = Terms::where("id", $term_id)->delete();
         if($term == 1) {
             return response()->json(["status" => "success", "message" => "Success! Terms deleted"]);

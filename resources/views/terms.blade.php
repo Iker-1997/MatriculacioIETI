@@ -44,7 +44,6 @@
       $("tr[data-id='"+id+"'] .input").removeClass("hidden");
       $("tr[data-id='"+id+"'] .text").addClass("hidden");
     }
-
     function saveChange(id){
       let start = $("tr[data-id='"+id+"'] .startEdit").val();
       let end = $("tr[data-id='"+id+"'] .endEdit").val();
@@ -56,7 +55,6 @@
       }).done(function (){
         $('tbody').empty();
         cancelChange(id);
-
         $.getJSON({
           url:"/api/terms/updateTable",
         }).done(response => {
@@ -66,12 +64,10 @@
         });
       });
     }
-
     function cancelChange(id){
       $("tr[data-id='"+id+"'] .text").removeClass("hidden");
       $("tr[data-id='"+id+"'] .input").addClass("hidden");
     }
-
     function addTerm(){
       //LO DE AJAX
       let start = $("#start").val();
@@ -93,11 +89,9 @@
         });
       });
     }
-
     function cancelAddTerm(){
       $("#formAdd").remove();
     }
-
     function addTermForm(){
       if( !$("#formAdd").length ){
         $("#addNewTerm").parent().after(

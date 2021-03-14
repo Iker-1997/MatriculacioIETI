@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Terms;
 use App\Http\Controllers\TermsController;
@@ -57,6 +58,21 @@ Route::get('/admin/dashboard/terms', function () {
 
 require __DIR__.'/auth.php';
 
+// Delete routes
+Route::name('termsDelete')
+  ->prefix('admin')
+  ->middleware(['auth', 'can:accessAdmin'])
+  ->group(function () {
+    Route::get('/terms/delete/{id}', function(Request $request){
+        $term = Terms::select('name_terms')
+                     ->where('id', '=', $request->route('id'))
+                     ->get();
+        return view('delTerm', ["term"=>$term]);
+    });        
+    Route::resource('terms', TermsController::class);
+});
+
+// Logs route
 Route::get("/log", function(){
     $user = auth::id();
     Log::channel('mysql_logging')->debug("This is a log example with a user id", ['user_Id' => $user]);
