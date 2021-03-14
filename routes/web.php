@@ -3,14 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
-
+use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Terms;
-use App\Models\Enrolments;
-
 use App\Http\Controllers\TermsController;
-use App\Http\Controllers\StudentListController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,8 +43,6 @@ Route::get('/dashboard', function () {
     }
 })->middleware(['auth'])->name('dashboard');
 
-/* ------------- AdminPanel --------------------*/
-
 Route::get('/admin', function () {
     return redirect('/admin/dashboard');
 })->middleware(['auth',  'can:accessAdmin'])->name('dashboard');
@@ -57,34 +51,28 @@ Route::get('/admin/dashboard', function () {
     return view('admin');
 })->middleware(['auth',  'can:accessAdmin'])->name('dashboard');
 
-/* ------------- Cursos --------------------*/
 Route::get('/admin/dashboard/terms', function () {
     $data = Terms::all();
     return view('terms', ['terms' => $data]);
 })->middleware(['auth',  'can:accessAdmin'])->name('terms');
 
-
-/* ------------- Student --------------------*/
-Route::get('/admin/dashboard/ad_student_list', function () {
-    $data = Enrolments::all();
-    return view('ad_student_list', ['ad_student_list' => $data]);
-})->middleware(['auth',  'can:accessAdmin'])->name('ad_student_list');
-
-
 require __DIR__.'/auth.php';
 
-/*------------- Delete routes--------------------*/
+// Delete routes
 Route::name('termsDelete')
   ->prefix('admin')
   ->middleware(['auth', 'can:accessAdmin'])
   ->group(function () {
-    Route::get('/terms/delete/{id}', function() {
-        return view('delTerm');
+    Route::get('/terms/delete/{id}', function(Request $request){
+        $term = Terms::select('name_terms')
+                     ->where('id', '=', $request->route('id'))
+                     ->get();
+        return view('delTerm', ["term"=>$term]);
     });        
     Route::resource('terms', TermsController::class);
 });
 
-/* ------------- Log --------------------*/
+// Logs route
 Route::get("/log", function(){
     $user = auth::id();
     Log::channel('mysql_logging')->debug("This is a log example with a user id", ['user_Id' => $user]);

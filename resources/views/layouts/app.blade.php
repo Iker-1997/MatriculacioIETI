@@ -17,17 +17,14 @@
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head>
-    <body class="font-sans antialiased ">
-        <div class="min-h-screen bg-base">
+    <body class="font-sans antialiased">
+        <div class="min-h-screen bg-base min-w-max">
 
             <!-- Page Heading -->
             <x-header />
-            @include('flash-message')
 
-            <div class="col-md-8">
-                @yield('breadcrumbs')
-            </div>
             <!-- Page Content -->
             <main>
                 {{ $slot ?? '' }}
