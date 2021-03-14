@@ -72,6 +72,7 @@ Route::name('termsDelete')
     Route::resource('terms', TermsController::class);
 });
 
+
 // Logs route
 Route::get("/log", function(){
     $user = auth::id();
