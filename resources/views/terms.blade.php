@@ -51,7 +51,7 @@
       let name = $("tr[data-id='"+id+"'] .nameEdit").val();
       let desc = $("tr[data-id='"+id+"'] .descEdit").val();
 
-      $.post({
+      $.get({
         url:"/api/terms/update/"+id+"/"+start+"/"+end+"/"+name+"/"+desc,
       }).done(function (){
         $('tbody').empty();
@@ -79,7 +79,7 @@
       let name = $("#name").val();
       let desc = $("#description").val();
 
-      $.post({
+      $.get({
         url:"/api/terms/create/"+start+"/"+end+"/"+name+"/"+desc,
       }).done(function (){
         $('tbody').empty();
