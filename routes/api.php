@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CareersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TermsController;
@@ -76,4 +77,39 @@ Route::get('/proreq/create/{name}', function (Request $request) {
 Route::get('/proreq/updateTable', function (Request $request) {
     $profile = new profilereqController;
     return $profile->index();
+});
+
+// ###############################
+// ------- CAREERS SECTION -------
+// ###############################
+// Delete careers.
+Route::get('/careers/delete/{id}', function (Request $request) {
+    $career = new CareersController;
+    return $career->destroy($request->route('id'));
+});
+
+Route::get('/careers/update/{id}/{term}/{name}/{code}/{family}/{hours}', function (Request $request) {
+    $career = new CareersController;
+    return $career->update(json_encode([  "id" => $request->route('id'),
+                                        "term" => $request->route('term'),
+                                        "name" => rawurldecode($request->route('name')),
+                                        "code" => rawurldecode($request->route('code')),
+                                        "family" => rawurldecode($request->route('family')),
+                                        "hours" => rawurldecode($request->route('hours'))]));
+});
+
+// Create new careers.
+Route::get('/careers/create/{term}/{name}/{code}/{family}/{hours}', function (Request $request) {
+    $career = new CareersController;
+    return $career->store(json_encode([ "term" => $request->route('term'),
+                                        "name" => rawurldecode($request->route('name')),
+                                        "code" => rawurldecode($request->route('code')),
+                                        "family" => rawurldecode($request->route('family')),
+                                        "hours" => rawurldecode($request->route('hours'))]));
+});
+
+// Show all careers.
+Route::get('/careers/updateTable', function (Request $request) {
+    $career = new CareersController;
+    return $career->index();
 });
