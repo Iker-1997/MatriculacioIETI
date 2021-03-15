@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Enrolments;
-use App\Models\User;
 
 class StudentListController extends Controller
 {
@@ -15,7 +14,8 @@ class StudentListController extends Controller
      */
     public function index()
     {
-        
+        $studentList = Enrolments::latest()->paginate(5);
+        return view('studentList', compact('studentList'));
     }
 
     /**
