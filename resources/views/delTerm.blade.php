@@ -1,42 +1,38 @@
 <x-app-layout>
-
-    <div class="py-12">
-        <div class="container flex justify-around">
-            <a href="/admin/dashboard/terms" class="mx-3 bg-mtr-dark p-5 w-4/12 text-center font-extrabold rounded-sm text-base">VIEW TERMS</a>
-            <a href="" class="mx-3 bg-mtr-dark p-5 w-4/12 text-center font-extrabold rounded-sm text-base">VIEW ALUMNS</a>
-        </div>
-    </div>
     <script>
-    var confirm_delete = false;
-    if (confirm('Are you sure you want to delete the {{$term[0]->name_terms}} term?')) {
-        if (confirm('ARE YOU REALLY SURE YOU WANT TO DELETE THE {{$term[0]->name_terms}} TERM? THIS ACTION CAN NOT BE UNDONE')) {
-            var input = prompt("Type {{$term[0]->name_terms}} to delete the term");
-            switch(input) {
-                case '{{$term[0]->name_terms}}':
-                    confirm_delete = true;
-                    alert("The term will be deleted.");
-                    break;
-                default:
-                alert("The term has NOT been deleted.");
-            }
-        } else {
-            alert("The term has NOT been deleted.");
-        }
-    } else {
-        alert("The term has NOT been deleted.");
-    }
-    var url = window.location.pathname;
-    var id = url.substring(url.lastIndexOf('/') + 1);
-    if (confirm_delete == true) {
-        $.get({
-            url:"/api/terms/delete/"+id,
-        }).done(function (){
-            alert("The term has been deleted. You'll be redirected to the terms site.");
-            $(location).attr('href', '/admin/dashboard/terms')
+        $(document).ready(function(){
+            $("#confirmDelete").click(function(){
+                var valueToDelete = "{{$term[0]->name_terms}}";
+                var valueConfirm = $("#confirm").val();
+                var url = window.location.pathname;
+                var id = url.substring(url.lastIndexOf('/') + 1);
+                if (valueConfirm == valueToDelete){
+                    console.log("Hola");
+                    if (confirm('Are you sure you want to delete the {{$term[0]->name_terms}} term?')) {
+                        if (confirm('ARE YOU REALLY SURE YOU WANT TO DELETE THE {{$term[0]->name_terms}} TERM? THIS ACTION CAN NOT BE UNDONE')) {
+                            $.get({
+                                url:"/api/terms/delete/"+id,
+                            }).done(function (){
+                                alert("The term has been deleted. You'll be redirected to the terms site.");
+                                $(location).attr('href', '/admin/dashboard/terms');                        
+                            });
+                        } else {
+                            alert("The term has NOT been deleted.");
+                        }
+                    } else {
+                    alert("The term has NOT been deleted.");
+                    }
+                } else {
+                    alert("The term has NOT been deleted.");
+                }
+            });
         });
-    }
     </script>
-    <!--TERM NAME-->
-    {{$term}}
+    <div class="p-6 pt-16 text-center">
+        <p class="font-extrabold">Type "{{$term[0]->name_terms}}" to delete the term</p>
+        <br>
+        <input type="text" name="confirm" id="confirm">
+        <button class="bg-red-500 py-2 px-4 text-white rounded" id="confirmDelete">Confirm</button>
+    </div>
 
 </x-app-layout>
