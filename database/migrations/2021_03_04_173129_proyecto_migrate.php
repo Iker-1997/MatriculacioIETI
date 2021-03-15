@@ -29,6 +29,7 @@ class ProyectoMigrate extends Migration{
             $table->string('code_careers');
             $table->text('family');
             $table->integer('career_hours');
+            $table->softDeletes();
             $table->timestamps();
         });
 
