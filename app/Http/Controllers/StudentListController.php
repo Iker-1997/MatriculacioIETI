@@ -15,10 +15,7 @@ class StudentListController extends Controller
      */
     public function index()
     {
-        $ad_student_list = User::whereHas('role' , function($q){
-            $q->whereName('student');
-         })->get();
-        return view('ad_student_list',  compact('ad_student_list'));
+        
     }
 
     /**
