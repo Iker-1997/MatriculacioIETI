@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Enrolments;
+use App\Models\User;
 
 class StudentListController extends Controller
 {
@@ -14,8 +15,10 @@ class StudentListController extends Controller
      */
     public function index()
     {
-        $studentList = Enrolments::latest()->paginate(5);
-        return view('studentList', compact('studentList'));
+        $ad_student_list = User::whereHas('role' , function($q){
+            $q->whereName('student');
+         })->get();
+        return view('ad_student_list',  compact('ad_student_list'));
     }
 
     /**

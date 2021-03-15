@@ -58,7 +58,7 @@ Route::get('/admin/dashboard/terms', function () {
 })->middleware(['auth',  'can:accessAdmin'])->name('terms');
 
 Route::get('/admin/dashboard/ad_student_list', function () {
-    $data = StudentListController::all();
+    $data = User::all();
     return view('ad_student_list', ['ad_student_list' => $data]);
 })->middleware(['auth',  'can:accessAdmin'])->name('ad_student_list');
 
