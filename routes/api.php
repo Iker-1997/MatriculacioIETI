@@ -89,6 +89,7 @@ Route::get('/careers/delete/{id}', function (Request $request) {
     return $career->destroy($request->route('id'));
 });
 
+// Update career
 Route::get('/careers/update/{id}/{term}/{name}/{code}/{family}/{hours}', function (Request $request) {
     $career = new CareersController;
     return $career->update(json_encode([  "id" => $request->route('id'),

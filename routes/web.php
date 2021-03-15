@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Terms;
 use App\Http\Controllers\TermsController;
+use App\Models\Careers;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -56,9 +58,16 @@ Route::get('/admin/dashboard/terms', function () {
     return view('terms', ['terms' => $data]);
 })->middleware(['auth',  'can:accessAdmin'])->name('terms');
 
+Route::get('/admin/dashboard/term_careers/{id}', function (Request $request) {
+    $data = Careers::where("term_id", $request->route('id'))->get();
+    $term = Terms::where("id", $request->route('id'))->get();
+    return view('term_careers', ['careers' => $data, 'term' => $term]);
+})->middleware(['auth',  'can:accessAdmin'])->name('term_careers');
+
 require __DIR__.'/auth.php';
 
 // Delete routes
+// Delete term
 Route::name('termsDelete')
   ->prefix('admin')
   ->middleware(['auth', 'can:accessAdmin'])
