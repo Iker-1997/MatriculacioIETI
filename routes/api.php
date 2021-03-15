@@ -18,13 +18,13 @@ use App\Http\Controllers\ProfilereqController;
 // ###############################
 // -------- TERMS SECTION --------
 // ###############################
-// Delete terms. ADMIN ONLY (When checking, delete middleware, and leave it like Route::get...)
+// Delete terms.
 Route::get('/terms/delete/{id}', function (Request $request) {
     $term = new TermsController;
     return $term->destroy($request->route('id'));
 });
 
-// Update terms. ADMIN ONLY (When checking, delete middleware, and leave it like Route::get...)
+// Update terms.
 Route::get('/terms/update/{id}/{start}/{end}/{name}/{desc}', function (Request $request) {
     $term = new TermsController;
     return $term->update(json_encode([  "id" => $request->route('id'),
@@ -34,7 +34,7 @@ Route::get('/terms/update/{id}/{start}/{end}/{name}/{desc}', function (Request $
                                         "desc" => rawurldecode($request->route('desc'))]));
 });
 
-// Create new terms. ADMIN ONLY (When checking, delete middleware, and leave it like Route::get...)
+// Create new terms.
 Route::get('/terms/create/{start}/{end}/{name}/{desc}', function (Request $request) {
     $term = new TermsController;
     return $term->store(json_encode([   "start" => $request->route('start'),
@@ -43,7 +43,7 @@ Route::get('/terms/create/{start}/{end}/{name}/{desc}', function (Request $reque
                                         "desc" => rawurldecode($request->route('desc'))]));
 });
 
-// Show all terms. ADMIN ONLY (When checking, delete middleware, and leave it like Route::get...)
+// Show all terms.
 Route::get('/terms/updateTable', function (Request $request) {
     $term = new TermsController;
     return $term->index();
@@ -53,21 +53,27 @@ Route::get('/terms/updateTable', function (Request $request) {
 // --------- PROFILEREQ ---------
 // ###############################
 
-// Delete requirements profile requirements. ADMIN ONLY (When checking, delete middleware, and leave it like Route::get...)
+// Delete requirements profile requirements.
 Route::get('/proreq/delete/{id}', function (Request $request) {
     $profile= new ProfilereqController;
     return $profile->destroy($request->route('id'));
 });
 
-// Update requirements profile. ADMIN ONLY (When checking, delete middleware, and leave it like Route::get...)
+// Update requirements profile.
 Route::get('/proreq/update/{id}/{name}', function (Request $request) {
     $profile = new ProfilereqController;
     return $profile->update(json_encode(["id" => $request->route('id'),
                                         "name" => rawurldecode($request->route('name'))]));
 });
 
-// Create requirements profile. ADMIN ONLY (When checking, delete middleware, and leave it like Route::get...)
+// Create requirements profile.
 Route::get('/proreq/create/{name}', function (Request $request) {
     $profile = new ProfilereqController;
     return $profile->store(json_encode(["name" => rawurldecode($request->route('name'))]));
+});
+
+// Show all requirements profile.
+Route::get('/proreq/updateTable', function (Request $request) {
+    $profile = new profilereqController;
+    return $profile->index();
 });
