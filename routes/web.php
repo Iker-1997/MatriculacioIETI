@@ -58,7 +58,7 @@ Route::get('/admin/dashboard/terms', function () {
 })->middleware(['auth',  'can:accessAdmin'])->name('terms');
 
 Route::get('/admin/dashboard/ad_student_list', function () {
-    $ad_student_list = User::where("role", "student")->paginate(5);
+    $ad_student_list = User::where("role", "student")->paginate(20);
     return view('ad_student_list', ['ad_student_list' => $ad_student_list]);
 })->middleware(['auth',  'can:accessAdmin'])->name('ad_student_list');
 
