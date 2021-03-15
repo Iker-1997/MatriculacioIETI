@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TermsController;
 use App\Http\Controllers\ProfilereqController;
+use App\Models\Careers;
 
 /*
 |--------------------------------------------------------------------------
@@ -112,4 +113,10 @@ Route::get('/careers/create/{term}/{name}/{code}/{family}/{hours}', function (Re
 Route::get('/careers/updateTable', function (Request $request) {
     $career = new CareersController;
     return $career->index();
+});
+
+// Show all careers related to a term
+Route::get('/careers/updateTable/{id}', function (Request $request) {
+    $careers = Careers::where("term_id", $request->route('id'))->get();
+    return response()->json($careers);
 });
