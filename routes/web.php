@@ -58,8 +58,8 @@ Route::get('/admin/dashboard/terms', function () {
 })->middleware(['auth',  'can:accessAdmin'])->name('terms');
 
 Route::get('/admin/dashboard/ad_student_list', function () {
-    $data = StudentListController::all();
-    return view('ad_student_list', ['ad_student_list' => $data]);
+    $ad_student_list = User::where("role", "student")->paginate(20);
+    return view('ad_student_list', ['ad_student_list' => $ad_student_list]);
 })->middleware(['auth',  'can:accessAdmin'])->name('ad_student_list');
 
 Route::get('/admin/dashboard/importStudent', function () {
