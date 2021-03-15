@@ -26,6 +26,7 @@
           </tr>
           @endforeach
         </tbody>
+        {{ $ad_student_list->links() }}
       </table>
   </div>
   <script src="{{asset('js/studentcrud.js')}}"></script>
