@@ -1,6 +1,6 @@
 <header class="w-full bg-user text-white py-4 flex justify-between">
      <div class="mx-3 bg-mtr-dark p-2 w-1/12 text-center font-mono rounded-sm min-w-max">
-          <a href="/dashboard">Inicio</a>
+          <a href="/dashboard">HOME</a>
      </div>
      <div class="p-2 w-1/12 text-center text-black">
           <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

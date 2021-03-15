@@ -6,7 +6,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('css/breadcrumbs.css') }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>Matriculació IETI</title>
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
