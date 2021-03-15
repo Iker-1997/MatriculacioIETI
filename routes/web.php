@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Models\Terms;
 use App\Http\Controllers\TermsController;
 use App\Http\Controllers\StudentListController;
+use App\Models\Careers;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -58,18 +60,24 @@ Route::get('/admin/dashboard/terms', function () {
 })->middleware(['auth',  'can:accessAdmin'])->name('terms');
 
 Route::get('/admin/dashboard/ad_student_list', function () {
-    $data = StudentListController::all();
-    return view('ad_student_list', ['ad_student_list' => $data]);
+    $ad_student_list = User::where("role", "student")->paginate(20);
+    return view('ad_student_list', ['ad_student_list' => $ad_student_list]);
 })->middleware(['auth',  'can:accessAdmin'])->name('ad_student_list');
 
 Route::get('/admin/dashboard/importStudent', function () {
     $data = StudentListController::all();
     return view('importStudent', ['importStudent' => $data]);
 })->middleware(['auth',  'can:accessAdmin'])->name('importStudent');
+Route::get('/admin/dashboard/term_careers/{id}', function (Request $request) {
+    $data = Careers::where("term_id", $request->route('id'))->get();
+    $term = Terms::where("id", $request->route('id'))->get();
+    return view('term_careers', ['careers' => $data, 'term' => $term]);
+})->middleware(['auth',  'can:accessAdmin'])->name('term_careers');
 
 require __DIR__.'/auth.php';
 
 // Delete routes
+// Delete term
 Route::name('termsDelete')
   ->prefix('admin')
   ->middleware(['auth', 'can:accessAdmin'])
