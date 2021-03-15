@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Profilereq;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProfilereqController extends Controller
 {
@@ -55,7 +56,7 @@ class ProfilereqController extends Controller
 // -------------- [ Delete post ] ---------------
     public function destroy($proreq_id) {
         // Soft delete the profile with the provided id.
-        $proreq = DB::table('profilereq')->where("id", $proreq_id)->delete();
+        $proreq = DB::table('profilereq')->where("id", $proreq_id)->update(["deleted_at" => date("Y-m-d H:i:s", strtotime('now'))]);
         if($proreq == 1) {
             return response()->json(["status" => "success", "message" => "Success! profile deleted"]);
         }

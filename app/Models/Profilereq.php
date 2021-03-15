@@ -11,6 +11,7 @@ use App\Models\Requirements;
 
 class Profilereq extends Model
 {
+    protected $table = 'profilereq';
     use HasFactory;
 
     // Enabling soft delete on model
