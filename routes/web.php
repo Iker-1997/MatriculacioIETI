@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Terms;
 use App\Http\Controllers\TermsController;
+use App\Http\Controllers\StudentListController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +56,16 @@ Route::get('/admin/dashboard/terms', function () {
     $data = Terms::all();
     return view('terms', ['terms' => $data]);
 })->middleware(['auth',  'can:accessAdmin'])->name('terms');
+
+Route::get('/admin/dashboard/ad_student_list', function () {
+    $data = StudentListController::all();
+    return view('ad_student_list', ['ad_student_list' => $data]);
+})->middleware(['auth',  'can:accessAdmin'])->name('ad_student_list');
+
+Route::get('/admin/dashboard/importStudent', function () {
+    $data = StudentListController::all();
+    return view('importStudent', ['importStudent' => $data]);
+})->middleware(['auth',  'can:accessAdmin'])->name('importStudent');
 
 require __DIR__.'/auth.php';
 
