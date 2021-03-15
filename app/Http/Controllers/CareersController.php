@@ -22,7 +22,7 @@ class CareersController extends Controller
         $data = json_decode($info, true);
 
         // Insert the new data into the table
-        $career = DB::insert('insert into careers (term_id, name_careers, code_careers, family, career_hours, created_at, updated_at) values (?, ?, ?, ?, ?, ?, ?)', [date("Y-m-d H:i", strtotime($data['term']) ), date("Y-m-d H-i", strtotime($data['name'])), $data['code'], $data['family'], $data['hours'], date("Y-m-d H:i:s", strtotime('now')), date("Y-m-d H:i:s", strtotime('now'))]);
+        $career = DB::insert('insert into careers (term_id, name_careers, code_careers, family, career_hours, created_at, updated_at) values (?, ?, ?, ?, ?, ?, ?)', [$data['term'], $data['name'], $data['code'], $data['family'], $data['hours'], date("Y-m-d H:i:s", strtotime('now')), date("Y-m-d H:i:s", strtotime('now'))]);
 
         if($career == 1) {
             $id = DB::getPDO()->lastInsertId();
