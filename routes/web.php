@@ -28,11 +28,16 @@ Route::get('/', function () {
 
 // route redirection dashboard Student
 Route::get('/home', function () {
+    $user = auth::id();
+    Log::channel('mysql_logging')->debug("User in home", ['user_Id' => $user]);
     return view('dashboard');
+    
 })->middleware(['auth'])->name('dashboard');
 
 // route dashboard Student
 Route::get('/dashboard', function () {
+    $user = auth::id();
+    Log::channel('mysql_logging')->debug("User in dashboard", ['user_Id' => $user]);
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
@@ -55,29 +60,40 @@ Route::get('/admin', function () {
 
 // route dashboard Admin (AdminPanel)
 Route::get('/admin/dashboard', function () {
+    $user = auth::id();
+    Log::channel('mysql_logging')->debug("Admin in dashboard", ['user_Id' => $user]);
     return view('admin');
 })->middleware(['auth',  'can:accessAdmin'])->name('dashboard');
 
 // path for Term from AdminPanel.
 Route::get('/admin/dashboard/terms', function () {
     $data = Terms::all();
+    $user = auth::id();
+    Log::channel('mysql_logging')->debug("Admin in terms", ['user_Id' => $user]);
     return view('terms', ['terms' => $data]);
 })->middleware(['auth',  'can:accessAdmin'])->name('terms');
 
 // path for Student from AdminPanel.
 Route::get('/admin/dashboard/ad_student_list', function () {
     $ad_student_list = User::where("role", "student")->paginate(20);
+    $user = auth::id();
+    Log::channel('mysql_logging')->debug("Admin in students list", ['user_Id' => $user]);
     return view('ad_student_list', ['ad_student_list' => $ad_student_list]);
 })->middleware(['auth',  'can:accessAdmin'])->name('ad_student_list');
 
 // path for importStudent from Student.
 Route::get('/admin/dashboard/importStudent', function () {
     $data = StudentListController::all();
+    $user = auth::id();
+    Log::channel('mysql_logging')->debug("Admin in import students site", ['user_Id' => $user]);
     return view('importStudent', ['importStudent' => $data]);
 })->middleware(['auth',  'can:accessAdmin'])->name('importStudent');
 Route::get('/admin/dashboard/term_careers/{id}', function (Request $request) {
     $data = Careers::where("term_id", $request->route('id'))->get();
     $term = Terms::where("id", $request->route('id'))->get();
+    $id = $request->route('id');
+    $user = auth::id();
+    Log::channel('mysql_logging')->debug("Admin in careers of term id $id", ['user_Id' => $user]);
     return view('term_careers', ['careers' => $data, 'term' => $term]);
 })->middleware(['auth',  'can:accessAdmin'])->name('term_careers');
 
@@ -93,6 +109,9 @@ Route::name('termsDelete')
         $term = Terms::select('name_terms')
                      ->where('id', '=', $request->route('id'))
                      ->get();
+        $id = $request->route('id');
+        $user = auth::id();
+        Log::channel('mysql_logging')->debug("Admin about to delete the term id $id", ['user_Id' => $user]);
         return view('delTerm', ["term"=>$term]);
     });        
     Route::resource('terms', TermsController::class);
