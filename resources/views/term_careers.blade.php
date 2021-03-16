@@ -4,7 +4,6 @@
 <x-app-layout>
   <div class="flex justify-around">
     <button type="button" id="addNewTerm" onClick="addCareerForm();" class="m-3 bg-mtr-dark p-1 w-4/12 text-center font-extrabold rounded-sm text-base">ADD Career</button>
-    <a href="" class="m-3 bg-mtr-dark p-1 w-4/12 text-center font-extrabold rounded-sm text-base">IMPORT Careers</a>
   </div>
   <div class="p-5">
     <table class="w-full">
