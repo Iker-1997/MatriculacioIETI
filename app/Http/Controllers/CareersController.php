@@ -58,11 +58,12 @@ class CareersController extends Controller
     }
 
 // -------------- [ Delete post ] ---------------
-    public function destroy($term_id) {
+    public function destroy($career_id) {
+        $id = Careers::select('term_id')->where("id", $career_id)->get();
         // Soft delete the term with the provided id.
-        $career = Careers::where("id", $term_id)->delete();
+        $career = Careers::where("id", $career_id)->delete();
         if($career == 1) {
-            return response()->json(["status" => "success", "message" => "Success! Careers deleted"]);
+            return response()->json(["status" => "success", "message" => "Success! Careers deleted", "term" => $id]);
         }
 
         else {
