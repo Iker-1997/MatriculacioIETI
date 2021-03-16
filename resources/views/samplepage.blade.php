@@ -15,39 +15,43 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-        <style>
-            body{
-                background-color:#3A81F5;
-            }
-        </style>
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-base min-w-max">
-        <div class="container bg-admin text-center rounded-xl p-8 shadow-xl">
+        <div class="container bg-blue-200 text-center rounded-xl p-8 shadow-xl">
             <h1 class="text-4xl md:text-6xl font-bold md:font-semibold text-user">Sample page</h1>
-            <p class="my-8 text-base">This is a test page filled with common HTML elements. </p>
+            <h2 class="mb-4 text-4xl">Headers</h2>
+            <header class="w-full bg-admin text-white py-4 flex justify-between">
+                <a href="/admin/dashboard" class="mx-3 bg-mtr-dark p-2 w-1/12 text-center font-mono rounded-sm min-w-max">HOME</a>
+                    <div class="p-2 w-1/12 text-center">
+                        <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="sign-out-alt" role="img" xmlns="http://www.w3.org/2000/svg" width="25" class="m-0" viewBox="0 0 512 512"><path fill="currentColor" d="M497 273L329 441c-15 15-41 4.5-41-17v-96H152c-13.3 0-24-10.7-24-24v-96c0-13.3 10.7-24 24-24h136V88c0-21.4 25.9-32 41-17l168 168c9.3 9.4 9.3 24.6 0 34zM192 436v-40c0-6.6-5.4-12-12-12H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h84c6.6 0 12-5.4 12-12V76c0-6.6-5.4-12-12-12H96c-53 0-96 43-96 96v192c0 53 43 96 96 96h84c6.6 0 12-5.4 12-12z"></path></svg>
+                        </a>
+                    </div>
+            </header>
+            <p class="my-8">This is a test page filled with common HTML elements. </p>
             <ul>
-                <li class="text-base"><a href="http://www.iesesteveterradas.cat/">This is a text link</a>.</li>
-                <li class="text-base"><strong>Strong is used to indicate strong importance.</strong></li>
-                <li class="text-base"><em>This text has added emphasis.</em></li>
-	            <li class="text-base">The <b>b element</b> is stylistically different text from normal text, without any special importance.</li>
-	            <li class="text-base">The <i>i element</i> is text that is offset from the normal text.</li>
-	            <li class="text-base">The <u>u element</u> is text with an unarticulated, though explicitly rendered, non-textual annotation.</li>
-	            <li class="text-base"><del>This text is deleted</del> and <ins>This text is inserted</ins>.</li>
+                <li><a href="http://www.iesesteveterradas.cat/">This is a text link</a>.</li>
+                <li><strong>Strong is used to indicate strong importance.</strong></li>
+                <li><em>This text has added emphasis.</em></li>
+	            <li>The <b>b element</b> is stylistically different text from normal text, without any special importance.</li>
+	            <li>The <i>i element</i> is text that is offset from the normal text.</li>
+	            <li>The <u>u element</u> is text with an unarticulated, though explicitly rendered, non-textual annotation.</li>
+	            <li><del>This text is deleted</del> and <ins>This text is inserted</ins>.</li>
             </ul>
             <p>This is a second list:</p>
             <ol>
-	            <li class="text-base"><s>This text has a strikethrough</s>.</li>
-	            <li class="text-base"><small>This small text is small for for fine print, etc.</small></li>
-	            <li class="text-base">Abbreviation: <abbr title="HyperText Markup Language">HTML</abbr></li>
-	            <li class="text-base"><q cite="https://developer.mozilla.org/en-US/docs/HTML/Element/q">This text is a short inline quotation.</q></li>
-	            <li class="text-base"><cite>This is a citation.</cite></li>
-	            <li class="text-base">The <dfn>dfn element</dfn> indicates a definition.</li>
-	            <li class="text-base">The <mark>mark element</mark> indicates a highlight.</li>
-	            <li class="text-base">The <var>variable element</var>, such as <var>x</var> = <var>y</var>.</li>
-	            <li class="text-base">The time element: <time datetime="2013-04-06T12:32+00:00">2 weeks ago</time></li>
+	            <li><s>This text has a strikethrough</s>.</li>
+	            <li><small>This small text is small for for fine print, etc.</small></li>
+	            <li>Abbreviation: <abbr title="HyperText Markup Language">HTML</abbr></li>
+	            <li><q cite="https://developer.mozilla.org/en-US/docs/HTML/Element/q">This text is a short inline quotation.</q></li>
+	            <li><cite>This is a citation.</cite></li>
+	            <li>The <dfn>dfn element</dfn> indicates a definition.</li>
+	            <li>The <mark>mark element</mark> indicates a highlight.</li>
+	            <li>The <var>variable element</var>, such as <var>x</var> = <var>y</var>.</li>
+	            <li>The time element: <time datetime="2013-04-06T12:32+00:00">2 weeks ago</time></li>
             </ol>
-            <h2 class="text-base">Sample Form</h2>  
+            <h2 class="mb-4 text-4xl">Forms</h2>
             <!-- component -->
             <div class="bg-white shadow rounded-lg p-6">        
                 <div class="grid lg:grid-cols-2 gap-6">
@@ -94,9 +98,8 @@
                     </button>
                 </div>
             </div>
-<h3>Super Important data</h3>
 <table class="w-full border-2 border-mtr-dark table-auto">
-	<caption class="mb-4 text-4xl">The dark side teachers</caption>
+	<caption class="mb-4 text-4xl">Tables</caption>
 	<thead>
 	<tr>
         <th class="border-2 border-mtr-dark">NAME</th>
@@ -122,7 +125,7 @@
 	</tr>
 	</tbody>
 </table>
-
+<h2 class="mb-4 text-4xl">Footer</h2>
 <footer class="w-full bg-admin text-white py-2 text-center bottom-0">
      2021 - {{ now()->year }}. Adrian Pradas - Jesus Serrano - Iker Cayero
 </footer>   
