@@ -26,6 +26,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/samplePage', function () {
+    return view('samplepage');
+});
+
 // route redirection dashboard Student
 Route::get('/home', function () {
     return view('dashboard');
@@ -97,8 +101,6 @@ Route::name('termsDelete')
     });        
     Route::resource('terms', TermsController::class);
 });
-
-
 // Logs route
 Route::get("/log", function(){
     $user = auth::id();
