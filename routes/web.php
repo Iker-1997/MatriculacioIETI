@@ -65,10 +65,10 @@ Route::get('/admin/dashboard/terms', function () {
 })->middleware(['auth',  'can:accessAdmin'])->name('terms');
 
 // path for Student from AdminPanel.
-Route::get('/admin/dashboard/ad_student_list', function () {
-    $ad_student_list = User::where("role", "student")->paginate(20);
-    return view('ad_student_list', ['ad_student_list' => $ad_student_list]);
-})->middleware(['auth',  'can:accessAdmin'])->name('ad_student_list');
+Route::get('/admin/dashboard/students', function () {
+    $students = User::where("role", "student")->paginate(20);
+    return view('Students', ['students' => $students]);
+})->middleware(['auth',  'can:accessAdmin'])->name('Students');
 
 // path for importStudent from Student.
 Route::get('/admin/dashboard/importStudent', function () {

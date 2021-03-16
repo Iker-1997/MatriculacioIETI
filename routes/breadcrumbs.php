@@ -11,9 +11,9 @@ Breadcrumbs::for('terms', function ($trail) {
 });
 
 // Inicio > alumne
-Breadcrumbs::for('ad_student_list', function ($trail) {
+Breadcrumbs::for('Students', function ($trail) {
     $trail->parent('dashboard');
-    $trail->push('ad_student_list', route('ad_student_list'));
+    $trail->push('Students', route('Students'));
 });
 
 // Inicio > Terms > [Career]
