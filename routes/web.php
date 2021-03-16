@@ -48,6 +48,8 @@ Route::get('/dashboard', function () {
             return redirect('/admin/dashboard');
         }
         if (Auth::user()->role == "student") {
+            $user = auth::id();
+            Log::channel('mysql_logging')->debug("User in dashboard", ['user_Id' => $user]);
             return view('dashboard');
         }
     }
@@ -125,6 +127,9 @@ Route::name('careersDelete')
         $career = Careers::select('name_careers')
                      ->where('id', '=', $request->route('id'))
                      ->get();
+        $id = $request->route('id');
+        $user = auth::id();
+        Log::channel('mysql_logging')->debug("Admin about to delete the career id $id", ['user_Id' => $user]);
         return view('delCareer', ["career"=>$career]);
     });        
     Route::resource('careers', CareersController::class);
