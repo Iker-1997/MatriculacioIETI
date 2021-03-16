@@ -31,6 +31,7 @@
             </div>
             <!-- Page Content -->
             <main>
+            <x-flash-messages />
                 {{ $slot ?? '' }}
             </main>
 

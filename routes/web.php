@@ -26,10 +26,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// route redirection dashboard Student
 Route::get('/home', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+// route dashboard Student
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
@@ -46,24 +48,29 @@ Route::get('/dashboard', function () {
     }
 })->middleware(['auth'])->name('dashboard');
 
+// route redirection dashboard Admin (AdminPanel)
 Route::get('/admin', function () {
     return redirect('/admin/dashboard');
 })->middleware(['auth',  'can:accessAdmin'])->name('dashboard');
 
+// route dashboard Admin (AdminPanel)
 Route::get('/admin/dashboard', function () {
     return view('admin');
 })->middleware(['auth',  'can:accessAdmin'])->name('dashboard');
 
+// path for Term from AdminPanel.
 Route::get('/admin/dashboard/terms', function () {
     $data = Terms::all();
     return view('terms', ['terms' => $data]);
 })->middleware(['auth',  'can:accessAdmin'])->name('terms');
 
+// path for Student from AdminPanel.
 Route::get('/admin/dashboard/ad_student_list', function () {
     $ad_student_list = User::where("role", "student")->paginate(20);
     return view('ad_student_list', ['ad_student_list' => $ad_student_list]);
 })->middleware(['auth',  'can:accessAdmin'])->name('ad_student_list');
 
+// path for importStudent from Student.
 Route::get('/admin/dashboard/importStudent', function () {
     $data = StudentListController::all();
     return view('importStudent', ['importStudent' => $data]);
