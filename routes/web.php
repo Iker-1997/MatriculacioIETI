@@ -117,6 +117,19 @@ Route::name('termsDelete')
     Route::resource('terms', TermsController::class);
 });
 
+Route::name('careersDelete')
+  ->prefix('admin')
+  ->middleware(['auth', 'can:accessAdmin'])
+  ->group(function () {
+    Route::get('/career/delete/{id}', function(Request $request){
+        $career = Careers::select('name_careers')
+                     ->where('id', '=', $request->route('id'))
+                     ->get();
+        return view('delCareer', ["career"=>$career]);
+    });        
+    Route::resource('careers', CareersController::class);
+});
+
 
 // Logs route
 Route::get("/log", function(){
