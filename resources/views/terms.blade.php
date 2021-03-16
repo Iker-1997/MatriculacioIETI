@@ -1,12 +1,12 @@
 @section('breadcrumbs')
   {{ Breadcrumbs::render('terms') }}
 @endsection
-<x-app-layout class="text-black">
+<x-app-layout>
   <script src="{{asset('js/breadcrumb.js')}}"></script>
   <div class="text-center">
     <button type="button" id="addNewTerm" onClick="addTermForm();" class="m-3 bg-mtr-dark p-1 w-4/12 text-center font-extrabold rounded-sm text-base">ADD Terms</button>
   </div>
-  <div class="p-5 text-black mb-12">
+  <div class="p-5 mb-12">
     <table class="w-full">
       <caption class="mb-4 text-4xl">TERMS</caption>
       <thead>
