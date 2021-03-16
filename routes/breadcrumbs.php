@@ -11,15 +11,15 @@ Breadcrumbs::for('terms', function ($trail) {
 });
 
 // Inicio > alumne
-Breadcrumbs::for('ad_student_list', function ($trail) {
+Breadcrumbs::for('Students', function ($trail) {
     $trail->parent('dashboard');
-    $trail->push('ad_student_list', route('ad_student_list'));
+    $trail->push('Students', route('Students'));
 });
 
-// Inicio > Cursos > [Cycles]
-Breadcrumbs::for('Cycles', function ($trail, $cycle) {
-    $trail->parent('Cycles');
-    $trail->push($cycle->name, route('Cycles.show', $cycle));
+// Inicio > Terms > [Career]
+Breadcrumbs::for('Career', function ($trail, $cycle) {
+    $trail->parent('terms');
+    $trail->push($cycle->name_terms, route('term_careers', $cycle));
 });
 // Inicio > Cursos > [Cycles] > [MPs]
 Breadcrumbs::for('mps', function ($trail, $mps) {
