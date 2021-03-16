@@ -19,7 +19,7 @@
       <tbody> 
         @foreach ($careers as $career)
           <tr class="text-center" data-id="{{ $career->id }}">
-            <td class="border-2 border-mtr-dark text"><a href="">{{ $career->name_careers }}</a></td>
+            <td class="border-2 border-mtr-dark text text-blue-500"><a href="">{{ $career->name_careers }}</a></td>
             <td class="hidden border-2 border-mtr-dark input"><input value="{{ $career->name_careers }}" type="text" name="nameEdit" class="nameEdit"></td>
             <td class="border-2 border-mtr-dark text">{{ $career->code_careers }}</td>
             <td class="hidden border-2 border-mtr-dark input"><input value="{{ $career->code_careers }}" type="text" name="codeEdit" class="codeEdit"></td>

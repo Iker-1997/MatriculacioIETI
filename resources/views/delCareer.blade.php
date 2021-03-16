@@ -7,14 +7,13 @@
                 var url = window.location.pathname;
                 var id = url.substring(url.lastIndexOf('/') + 1);
                 if (valueConfirm == valueToDelete){
-                    console.log("Hola");
                     if (confirm('Are you sure you want to delete the {{$career[0]->name_careers}} career?')) {
                         if (confirm('ARE YOU REALLY SURE YOU WANT TO DELETE THE {{$career[0]->name_careers}} CAREER? THIS ACTION CAN NOT BE UNDONE')) {
                             $.getJSON({
                                 url:"/api/careers/delete/"+id,
-                            }).done(function (response){
-                                alert("The term has been deleted. You'll be redirected to the terms site.");
-                                $(location).attr('href', '/admin/dashboard/term_careers/'+response[id]);                        
+                            }).done(response => {
+                                alert("The career has been deleted. You'll be redirected to the careers site.");
+                                $(location).attr('href', '/admin/dashboard/term_careers/'+response['term'][0]['term_id']);
                             });
                         } else {
                             alert("The career has NOT been deleted.");
