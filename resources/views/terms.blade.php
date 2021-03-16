@@ -21,7 +21,7 @@
         @foreach ($terms as $term)
           @if($term->deleted_at == null)
             <tr class="text-center" data-id="{{ $term->id }}">
-              <td class="border-2 border-mtr-dark text"><a href="">{{ $term->name_terms }}</a></td>
+              <td class="border-2 border-mtr-dark text"><a href="/admin/dashboard/term_careers/{{ $term->id }}">{{ $term->name_terms }}</a></td>
               <td class="hidden border-2 border-mtr-dark input"><input value="{{ $term->name_terms }}" type="text" name="nameEdit" class="nameEdit"></td>
               <td class="border-2 border-mtr-dark text">{{ $term->description_terms }}</td>
               <td class="hidden border-2 border-mtr-dark input"><input value="{{ $term->description_terms }}" type="text" name="descEdit" class="descEdit"></td>
