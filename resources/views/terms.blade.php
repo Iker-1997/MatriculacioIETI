@@ -1,42 +1,106 @@
+@section('breadcrumbs')
+  {{ Breadcrumbs::render('terms') }}
+@endsection
 <x-app-layout>
-
-  <div class="text-center"><button type="button" id="addNewterm" class="m-3 bg-mtr-dark p-1 w-4/12 text-center font-extrabold rounded-sm text-base">Add Terms</button></div>
-  <div class="p-3">
-      <table class="w-full border-2 border-mtr-dark table-auto">
-        <caption class="mb-4 text-4xl">TERMS</caption>
-        <thead>
-          <tr>
-            <th class="border-2 border-mtr-dark">ID</th>
-            <th class="border-2 border-mtr-dark">Start</th>
-            <th class="border-2 border-mtr-dark">End</th>
-            <th class="border-2 border-mtr-dark">Name</th>
-            <th class="border-2 border-mtr-dark">Description</th>
-            <th class="border-2 border-mtr-dark">Active</th>
-            <th class="border-2 border-mtr-dark">Action</th>
-          </tr>
-        </thead>
-        <tbody> 
-          @foreach ($terms as $term)
-          <tr class="text-center">
-              <td class="border-2 border-mtr-dark">{{ $term->id }}</td>
-              <td class="border-2 border-mtr-dark">{{ $term->start }}</td>
-              <td class="border-2 border-mtr-dark">{{ $term->end }}</td>
-              <td class="border-2 border-mtr-dark">{{ $term->name_terms }}</td>
-              <td class="border-2 border-mtr-dark">{{ $term->description_terms }}</td>
-              <td class="border-2 border-mtr-dark">{{ $term->active }}</td>
-
-              <td class="p-2 flex justify-around">
-                <a href="javascript:void(0)" class="bg-mtr-dark p-2 text-white rounded" data-id="{{ $term->id }}">Edit</a>
-                <a href="javascript:void(0)" class="bg-mtr-dark p-2 text-white rounded" data-id="{{ $term->id }}">Delete</a>
-              </td>
-          </tr>
-          @endforeach
-        </tbody>
-      </table>
-      {!! $terms->links() !!}
+  <script src="{{asset('js/breadcrumb.js')}}"></script>
+  <div class="text-center">
+    <button type="button" id="addNewTerm" onClick="addTermForm();" class="m-3 bg-mtr-dark p-1 w-4/12 text-center font-extrabold rounded-sm text-base">ADD Terms</button>
   </div>
+  <div class="p-5 mb-12">
+    <table class="w-full">
+      <caption class="mb-4 text-4xl">TERMS</caption>
+      <thead>
+        <tr>
+          <th class="border-2 border-mtr-dark">Name</th>
+          <th class="border-2 border-mtr-dark">Description</th>
+          <th class="border-2 border-mtr-dark">Start</th>
+          <th class="border-2 border-mtr-dark">End</th>
+        </tr>
+      </thead>
+      <tbody> 
+        @foreach ($terms as $term)
+          @if($term->deleted_at == null)
+            <tr class="text-center" data-id="{{ $term->id }}">
+              <td class="border-2 border-mtr-dark text text-blue-500"><a href="/admin/dashboard/term_careers/{{ $term->id }}">{{ $term->name_terms }}</a></td>
+              <td class="hidden border-2 border-mtr-dark input"><input value="{{ $term->name_terms }}" type="text" name="nameEdit" class="nameEdit"></td>
+              <td class="border-2 border-mtr-dark text">{{ $term->description_terms }}</td>
+              <td class="hidden border-2 border-mtr-dark input"><input value="{{ $term->description_terms }}" type="text" name="descEdit" class="descEdit"></td>
+              <td class="border-2 border-mtr-dark text">{{ $term->start }}</td>
+              <td class="hidden border-2 border-mtr-dark input"><input value="{{ $term->start }}" type="datetime" name="startEdit" class="startEdit"></td>
+              <td class="border-2 border-mtr-dark text">{{ $term->end }}</td>
+              <td class="hidden border-2 border-mtr-dark input"><input value="{{ $term->end }}" type="datetime" name="endEdit" class="endEdit"></td>
+              <td class="p-2 flex flex-col justify-center md:flex-row space-y-2 md:space-y-0 md:space-x-6">
+                <button id="edit" onClick="editRow({{ $term->id }})" class="bg-mtr-dark py-2 px-4 text-white rounded text">Edit</button>
+                <button id="save" onClick="saveChange({{ $term->id }})" class="hidden bg-mtr-dark py-2 px-4 text-white rounded input">Save</button>
+                <button id="cancel" onClick="cancelChange({{ $term->id }})" class="hidden bg-red-500 py-2 px-4 text-white rounded input">Cancel</button>                
+                <a href="/admin/terms/delete/{{$term->id}}" class="bg-red-500 py-2 px-4 text-white rounded text">Delete</a>
+              </td>
+            </tr>
+          @endif
+        @endforeach
+      </tbody>
+    </table>
+  </div>
+  <!--<script src="{{asset('js/termscrud.js')}}"></script>-->
+  <script>
+    function editRow(id){
+      $("tr[data-id='"+id+"'] .input").removeClass("hidden");
+      $("tr[data-id='"+id+"'] .text").addClass("hidden");
+    }
+    function saveChange(id){
+      let start = $("tr[data-id='"+id+"'] .startEdit").val();
+      let end = $("tr[data-id='"+id+"'] .endEdit").val();
+      let name = $("tr[data-id='"+id+"'] .nameEdit").val();
+      let desc = $("tr[data-id='"+id+"'] .descEdit").val();
 
-  <script src="{{asset('js/termscrud.js')}}"></script>
+      $.get({
+        url:"/api/terms/update/"+id+"/"+start+"/"+end+"/"+name+"/"+desc,
+      }).done(function (){
+        $('tbody').empty();
+        cancelChange(id);
+        $.getJSON({
+          url:"/api/terms/updateTable",
+        }).done(response => {
+          for (const term in response){
+            $("tbody").append('<tr class="text-center" data-id="'+response[term][`id`]+'""><td class="border-2 border-mtr-dark text text-blue-500"><a href="/admin/dashboard/term_careers/'+response[term][`id`]+'">'+response[term][`name_terms`]+'</a></td><td class="hidden border-2 border-mtr-dark input"><input value="'+response[term][`name_terms`]+'" type="text" name="nameEdit" class="nameEdit"></td><td class="border-2 border-mtr-dark text">'+response[term][`description_terms`]+'</td><td class="hidden border-2 border-mtr-dark input"><input value="'+response[term][`description_terms`]+'" type="text" name="descEdit" class="descEdit"></td><td class="border-2 border-mtr-dark text">'+response[term][`start`]+'</td><td class="hidden border-2 border-mtr-dark input"><input value="'+response[term][`start`]+'" type="datetime" name="startEdit" class="startEdit"></td><td class="border-2 border-mtr-dark text">'+response[term][`end`]+'</td><td class="hidden border-2 border-mtr-dark input"><input value="'+response[term][`end`]+'" type="datetime" name="endEdit" class="endEdit"></td><td class="p-2 flex flex-col justify-center md:flex-row space-y-2 md:space-y-0 md:space-x-6"><button id="edit" onClick="editRow('+response[term][`id`]+')" class="bg-mtr-dark py-2 px-4 text-white rounded text">Edit</button><button id="save" onClick="saveChange('+response[term][`id`]+')" class="hidden bg-mtr-dark py-2 px-4 text-white rounded input">Save</button><button id="cancel" onClick="cancelChange('+response[term][`id`]+')" class="hidden bg-red-500 py-2 px-4 text-white rounded input">Cancel</button><a href="/admin/terms/delete/'+response[term][`id`]+'" class="bg-red-500 py-2 px-4 text-white rounded text">Delete</a></td></tr>');
+          }
+        });
+      });
+    }
+    function cancelChange(id){
+      $("tr[data-id='"+id+"'] .text").removeClass("hidden");
+      $("tr[data-id='"+id+"'] .input").addClass("hidden");
+    }
+    function addTerm(){
+      //LO DE AJAX
+      let start = $("#start").val();
+      let end = $("#end").val();
+      let name = $("#name").val();
+      let desc = $("#description").val();
 
-
+      $.get({
+        url:"/api/terms/create/"+start+"/"+end+"/"+name+"/"+desc,
+      }).done(function (){
+        $('tbody').empty();
+        $("#formAdd").remove();
+        $.getJSON({
+          url:"/api/terms/updateTable",
+        }).done(response => {
+          for (const term in response){
+            $("tbody").append('<tr class="text-center" data-id="'+response[term][`id`]+'""><td class="border-2 border-mtr-dark text text-blue-500"><a href="/admin/dashboard/term_careers/'+response[term][`id`]+'">'+response[term][`name_terms`]+'</a></td><td class="hidden border-2 border-mtr-dark input"><input value="'+response[term][`name_terms`]+'" type="text" name="nameEdit" class="nameEdit"></td><td class="border-2 border-mtr-dark text">'+response[term][`description_terms`]+'</td><td class="hidden border-2 border-mtr-dark input"><input value="'+response[term][`description_terms`]+'" type="text" name="descEdit" class="descEdit"></td><td class="border-2 border-mtr-dark text">'+response[term][`start`]+'</td><td class="hidden border-2 border-mtr-dark input"><input value="'+response[term][`start`]+'" type="datetime" name="startEdit" class="startEdit"></td><td class="border-2 border-mtr-dark text">'+response[term][`end`]+'</td><td class="hidden border-2 border-mtr-dark input"><input value="'+response[term][`end`]+'" type="datetime" name="endEdit" class="endEdit"></td><td class="p-2 flex flex-col justify-center md:flex-row space-y-2 md:space-y-0 md:space-x-6"><button id="edit" onClick="editRow('+response[term][`id`]+')" class="bg-mtr-dark py-2 px-4 text-white rounded text">Edit</button><button id="save" onClick="saveChange('+response[term][`id`]+')" class="hidden bg-mtr-dark py-2 px-4 text-white rounded input">Save</button><button id="cancel" onClick="cancelChange('+response[term][`id`]+')" class="hidden bg-red-500 py-2 px-4 text-white rounded input">Cancel</button><a href="/admin/terms/delete/'+response[term][`id`]+'" class="bg-red-500 py-2 px-4 text-white rounded text">Delete</a></td></tr>');
+          }
+        });
+      });
+    }
+    function cancelAddTerm(){
+      $("#formAdd").remove();
+    }
+    function addTermForm(){
+      if( !$("#formAdd").length ){
+        $("#addNewTerm").parent().after(
+        "<form id='formAdd' action='' method='POST' class='w-full p-6 text-black'><div class='flex justify-center items-center space-x-4'><div class='my-2'><label for='name'>Name: </label><input type='text' name='name' id='name'></div><div class='my-2'><label for='description'>Descripition: </label><input type='text' name='description' id='description'></div><input class='bg-red-500 py-2 px-4 text-white rounded h-3/4' type='button' value='Cancel' onclick='cancelAddTerm()'></div></div><br><div class='flex justify-center items-center space-x-4'><div class='my-2'><label for='start'>Starts at: </label><input type='datetime-local' name='start' id='start'></div><div class='my-2'><label for='end'>Ends at: </label><input type='datetime-local' name='end' id='end'></div><input class='bg-mtr-dark py-2 px-4 text-white rounded h-3/4' type='button' value='Add' onclick='addTerm()'></div></form>"
+        );
+      }
+    }
+  </script>
 </x-app-layout>

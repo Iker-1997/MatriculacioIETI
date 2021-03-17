@@ -10,15 +10,6 @@ class ProyectoMigrate extends Migration{
     public function up()
     {
 
-        Schema::create('logs', function (Blueprint $table){
-            $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->string('lavel');
-            $table->text('message');
-            $table->timestamps();
-        });
-
         Schema::create('terms', function (Blueprint $table){
             $table->id();
             $table->dateTime('start');
@@ -38,6 +29,7 @@ class ProyectoMigrate extends Migration{
             $table->string('code_careers');
             $table->text('family');
             $table->integer('career_hours');
+            $table->softDeletes();
             $table->timestamps();
         });
 
@@ -91,6 +83,7 @@ class ProyectoMigrate extends Migration{
         Schema::create('profilereq', function (Blueprint $table){
             $table->id();
             $table->string('name_profile');
+            $table->softDeletes();
             $table->timestamps();
         });
 

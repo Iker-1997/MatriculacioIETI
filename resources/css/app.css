@@ -1,4 +1,9 @@
 @tailwind base;
+
+#toogle:checked ~ label div.toogle-dot {
+    @apply translate-x-3;
+}
+
 @tailwind components;
 @tailwind utilities;
 

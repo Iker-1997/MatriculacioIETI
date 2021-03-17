@@ -18,11 +18,13 @@ class MySQLLoggingHandler extends AbstractProcessingHandler{
     {
        //dd($record);
        $user = $record['context'];
-       print_r($user['user_Id']);
+       //print_r($user['user_Id']);
        $data = array(
            'user_id'       => $user['user_Id'],
            'level'         => $record['level'],
            'message'       => $record['message'],
+           'created_at'    => date("Y-m-d H:i:s", strtotime('now')),
+           'updated_at'    => date("Y-m-d H:i:s", strtotime('now'))
        );
        DB::connection()->table($this->table)->insert($data);     
     }
