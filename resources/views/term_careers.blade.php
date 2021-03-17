@@ -5,7 +5,7 @@
   <div class="flex justify-around">
     <button type="button" id="addNewTerm" onClick="addCareerForm();" class="m-3 bg-mtr-dark p-1 w-4/12 text-center font-extrabold rounded-sm text-base">ADD Career</button>
   </div>
-  <div class="p-5">
+  <div class="p-5 mb-10">
     <table class="w-full">
       <caption class="mb-4 text-4xl">{{ $term[0]->name_terms }}</caption>
       <thead>

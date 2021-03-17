@@ -5,7 +5,7 @@
   <div class="text-center">
     <button type="button" id="importStudent" class="m-3 bg-mtr-dark p-1 w-4/12 text-center font-extrabold rounded-sm text-base">Import Student</button>
   </div>
-  <div class="p-3">
+  <div class="p-3 mb-10">
       <table class="w-full border-2 border-mtr-dark table-auto">
         <caption class="mb-4 text-4xl">STUDENTS</caption>
         <thead>
