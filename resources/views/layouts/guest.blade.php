@@ -48,8 +48,8 @@
             }
         </style>
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-base dark:bg-gray-800 min-w-max">
+    <body class="font-sans antialiased bg-base dark:bg-gray-800 dark:text-white">
+        <div class="min-h-screen min-w-max">
 
             <!-- Page Heading -->
             <x-header-user />
