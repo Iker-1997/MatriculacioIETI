@@ -18,7 +18,7 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-base min-w-max">
-        <div class="container bg-blue-200 text-center rounded-xl p-8 shadow-xl">
+        <div class="bg-blue-200 text-center rounded-xl p-8 shadow-xl">
             <h1 class="text-4xl md:text-6xl font-bold md:font-semibold text-user">Sample page</h1>
             <h2 class="mb-4 text-4xl">Headers</h2>
             <header class="w-full bg-admin text-white py-4 flex justify-between">
@@ -29,71 +29,14 @@
                         </a>
                     </div>
             </header>
-            <p class="my-8">This is a test page filled with common HTML elements. </p>
-            <ul>
-                <li><a href="http://www.iesesteveterradas.cat/">This is a text link</a>.</li>
-                <li><strong>Strong is used to indicate strong importance.</strong></li>
-                <li><em>This text has added emphasis.</em></li>
-	            <li>The <b>b element</b> is stylistically different text from normal text, without any special importance.</li>
-	            <li>The <i>i element</i> is text that is offset from the normal text.</li>
-	            <li>The <u>u element</u> is text with an unarticulated, though explicitly rendered, non-textual annotation.</li>
-	            <li><del>This text is deleted</del> and <ins>This text is inserted</ins>.</li>
-            </ul>
-            <p>This is a second list:</p>
-            <ol>
-	            <li><s>This text has a strikethrough</s>.</li>
-	            <li><small>This small text is small for for fine print, etc.</small></li>
-	            <li>Abbreviation: <abbr title="HyperText Markup Language">HTML</abbr></li>
-	            <li><q cite="https://developer.mozilla.org/en-US/docs/HTML/Element/q">This text is a short inline quotation.</q></li>
-	            <li><cite>This is a citation.</cite></li>
-	            <li>The <dfn>dfn element</dfn> indicates a definition.</li>
-	            <li>The <mark>mark element</mark> indicates a highlight.</li>
-	            <li>The <var>variable element</var>, such as <var>x</var> = <var>y</var>.</li>
-	            <li>The time element: <time datetime="2013-04-06T12:32+00:00">2 weeks ago</time></li>
-            </ol>
-            <h2 class="mb-4 text-4xl">Forms</h2>
-            <!-- component -->
-            <div class="bg-white shadow rounded-lg p-6">        
-                <div class="grid lg:grid-cols-2 gap-6">
-                    <div class="border focus-within:border-blue-500 focus-within:text-blue-500 transition-all duration-500 relative rounded p-1">
-                        <div class="-mt-4 absolute tracking-wider px-1 uppercase text-xs">
-                            <p>
-                            </p>
-                        </div>
+                <div class="m-4">
                     <p>
-                    <input id="name" autocomplete="false" tabindex="0" type="text" value="start" class="py-1 px-1 text-gray-900 outline-none block h-full w-full">
+                    <label for="password">Input</label>
+                    <input id="password" autocomplete="false" tabindex="0" type="text"  value="description">
                     </p>
-                    </div>
-                    <div class="border focus-within:border-blue-500 focus-within:text-blue-500 transition-all duration-500 relative rounded p-1">
-                        <div class="-mt-4 absolute tracking-wider px-1 uppercase text-xs">
-                        <p>
-                        </p>
-                    </div>
-                    <p>
-                    <input id="lastname" autocomplete="false" tabindex="0" type="text"  value="end" class="py-1 px-1 outline-none block h-full w-full">
-                    </p>
-                    </div>
-                    <div class="border focus-within:border-blue-500 focus-within:text-blue-500 transition-all duration-500 relative rounded p-1">
-                        <div class="-mt-4 absolute tracking-wider px-1 uppercase text-xs">
-                            <p>
-                            </p>
-                        </div>
-                        <p>
-                        <input id="username" autocomplete="false" tabindex="0" type="text"  value="name" class="py-1 px-1 outline-none block h-full w-full">
-                        </p>
-                    </div>
-                    <div class="border focus-within:border-blue-500 focus-within:text-blue-500 transition-all duration-500 relative rounded p-1">
-                        <div class="-mt-4 absolute tracking-wider px-1 uppercase text-xs">
-                            <p>
-                            </p>
-                        </div>
-                        <p>
-                        <input id="password" autocomplete="false" tabindex="0" type="text"  value="description" class="py-1 px-1 outline-none block h-full w-full">
-                        </p>
-                    </div>
                 </div>
                 <div class="border-t mt-6 pt-3">
-                    <button class="rounded text-gray-100 px-3 py-1 bg-blue-500 hover:shadow-inner hover:bg-blue-700 transition-all duration-300">
+                    <button class="bg-mtr-dark py-2 px-4 text-white rounded">
                     Save
                     </button>
                 </div>
@@ -125,7 +68,7 @@
 	</tr>
 	</tbody>
 </table>
-<h2 class="mb-4 text-4xl">Footer</h2>
+<h2 class="mb-4 text-4xl text-center">Footer</h2>
 <footer class="w-full bg-admin text-white py-2 text-center bottom-0">
      2021 - {{ now()->year }}. Adrian Pradas - Jesus Serrano - Iker Cayero
 </footer>   
